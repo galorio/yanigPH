@@ -1,0 +1,85 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="rescue-me_data" version="1.3.0" audacityversion="2.1.1" sel0="0.0029082647" sel1="0.0029082647" vpos="752" h="1.4773984663" zoom="343.8476562500" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags/>
+	<wavetrack name="R_morse_code" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="47232">
+				<waveblock start="0">
+					<simpleblockfile filename="e00000fb.au" len="47232" min="-1.015718" max="1.014909" rms="0.41412"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="E_morse_code" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.83886621">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="18432">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000b43.au" len="18432" min="-1.002124" max="1.002071" rms="0.184872"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="S_morse_code" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="1.03244898">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="35712">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000e1d.au" len="35712" min="-1.002377" max="1.002071" rms="0.319943"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="C_morse_code" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="1.60535147">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="64512">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000323.au" len="64512" min="-1.013265" max="1.014631" rms="0.523615"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="U_morse_code" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="2.80358277">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="47232">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000b60.au" len="47232" min="-1.028637" max="1.017499" rms="0.4143"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="E_morse_code" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="3.62659864">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="18432">
+				<waveblock start="0">
+					<simpleblockfile filename="e000048f.au" len="18432" min="-1.002124" max="1.002071" rms="0.184872"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="M_morse_code" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="3.80111111">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="47232">
+				<waveblock start="0">
+					<simpleblockfile filename="e00003cd.au" len="47232" min="-1.013265" max="1.014631" rms="0.454086"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="E_morse_code" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="4.63077098">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="18432">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000c36.au" len="18432" min="-1.002124" max="1.002071" rms="0.184872"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

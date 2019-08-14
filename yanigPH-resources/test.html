@@ -1,0 +1,724 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.1 Transitional//EN">
+<!-- saved from url=(0046)http://www.csgnetwork.com/morsecodedeconv.html -->
+<html><!--   HTML coding exclusively with the CoffeeCup HTML 2009 Editor --><!--          http://www.coffeecup.com                             --><!--   Brewed on December 6 1994 1:09:21 PM                        --><!--   Updated on September 6 2001 4:18:12 AM                      --><!--   Updated on December 9 2004 8:22:45 PM                       --><!--   Created by Dr. Gene Davis - Computer Support Group          --><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Virtual Text To Morse Code Converter - Morse Code To Text Converter</title>
+<meta name="Title" content="CSGNetwork Virtual Text To Morse Code Converter - Morse Code To Text Converter">
+<meta name="Author" content="For CSGNetwork.Com, Computer Support Group - Dr. Gene Davis">
+<meta name="Subject" content="CSGNetwork public use converter">
+<meta name="Description" content="These scripts are designed to convert text typed into the input field into more code symbols of dots and dashes, and the reverse.">
+<meta name="Keywords" content="text to morse code, morse code to text, morse code, telegraph, Samuel Morse, ham radio, aviation station identifier, dot, dots, dash, dashes, amateur radio, converter">
+<meta name="Language" content="English">
+<meta name="Expires" content="Never">
+<meta name="Copyright" content="© 1977 - 2009 Computer Support Group - CSGNetwork and CSGNetwork.Com are registered trademarks with the US Patent and Trademark Office">
+<meta name="Designer" content="Dr. Gene Davis">
+<meta name="Publisher" content="Computer Support Group, Inc.">
+<meta name="Revisit-After" content="14 Days">
+<meta name="Distribution" content="Global">
+<meta name="Robots" content="All">
+
+<script async="" src="./Virtual Text To Morse Code Converter - Morse Code To Text Converter_files/analytics.js"></script><script language="JavaScript">
+
+<!-- Hide
+
+
+
+// CED subroutine for cleaning up JavaScript rounding errors 
+
+// to any reasonable number of decimal places 5/5/1997 last mod 2/19/2004
+
+// round for decimal of (value of precision) places, default is 3
+
+// This routine can be used to pass a number and a number for precision
+
+// or just a number only, that is to be rounded to a set number of decimal
+
+// places. This routine supports leading and training zeros, leading and
+
+// trailing spaces, and padding. To prevent errors, pass variables as a string.
+
+
+
+function perRound(num, precision) {
+
+	var precision = 3; //default value if not passed from caller, change if desired
+
+	// remark if passed from caller
+
+	precision = parseInt(precision); // make certain the decimal precision is an integer
+
+    var result1 = num * Math.pow(10, precision);
+
+    var result2 = Math.round(result1);
+
+    var result3 = result2 / Math.pow(10, precision);
+
+    return zerosPad(result3, precision);
+
+}
+
+
+
+function zerosPad(rndVal, decPlaces) {
+
+    var valStrg = rndVal.toString(); // Convert the number to a string
+
+    var decLoc = valStrg.indexOf("."); // Locate the decimal point
+
+    // check for a decimal 
+
+    if (decLoc == -1) {
+
+        decPartLen = 0; // If no decimal, then all decimal places will be padded with 0s
+
+        // If decPlaces is greater than zero, add a decimal point
+
+        valStrg += decPlaces > 0 ? "." : "";
+
+    }
+
+    else {
+
+        decPartLen = valStrg.length - decLoc - 1; // If there is a decimal already, only the needed decimal places will be padded with 0s
+
+    }
+
+     var totalPad = decPlaces - decPartLen;    // Calculate the number of decimal places that need to be padded with 0s
+
+    if (totalPad > 0) {
+
+        // Pad the string with 0s
+
+        for (var cntrVal = 1; cntrVal <= totalPad; cntrVal++) 
+
+            valStrg += "0";
+
+        }
+
+    return valStrg;
+
+}
+
+// send the value in as "num" in a variable
+
+
+
+// clears field of default value
+
+function clear_field(field) {
+
+		if (field.value==field.defaultValue) {
+
+			field.value=''
+
+		}
+
+	}
+
+
+
+function clearing()
+
+{window.document.morse.output.value = " ";}
+
+
+
+function clearing2()
+
+{window.document.morse2.output2.value = " ";}
+
+
+
+function text2Code()
+
+{
+
+  var ced3 = "abcdefghijklmnopqrstuvwxyz. ", i, d, f;
+
+  var ced4 = window.document.morse.input.value.toLowerCase();
+
+  var ced1 = window.document.morse.output;
+
+  var ced2 = ced4.length;
+
+
+
+   for(i=0; i<ced2; i++)
+
+    {
+
+     i = ced4.charAt(i);
+
+     if(ced3.indexOf (i) ==-1)
+
+       {
+
+        alert("Please use only letters.");
+
+        break;
+
+       }
+
+     else
+
+       {
+
+        for(f=0; f<ced2; f++)
+
+         {
+
+          switch (ced4.charAt(f))
+
+            {
+
+             case 'a':{ced1.value += " .- "; break;}
+
+             case 'b':{ced1.value += " -... "; break;}
+
+             case 'c':{ced1.value += " -.-. "; break;}
+
+             case 'd':{ced1.value += " -.. "; break;}
+
+             case 'e':{ced1.value += " . "; break;}
+
+             case 'f':{ced1.value += " ..-. "; break;}
+
+             case 'g':{ced1.value += " --. "; break;}
+
+             case 'h':{ced1.value += " .... "; break;}
+
+             case 'i':{ced1.value += " .. "; break;}
+
+             case 'j':{ced1.value += " .--- "; break;}
+
+             case 'k':{ced1.value += " -.- "; break;}
+
+             case 'l':{ced1.value += " .-.. "; break;}
+
+             case 'm':{ced1.value += " -- "; break;}
+
+             case 'n':{ced1.value += " -. "; break;}
+
+             case 'o':{ced1.value += " --- "; break;}
+
+             case 'p':{ced1.value += " .--. "; break;}
+
+             case 'q':{ced1.value += " --.- "; break;}
+
+             case 'r':{ced1.value += " .-. "; break;}
+
+             case 's':{ced1.value += " ... "; break;}
+
+             case 't':{ced1.value += " - "; break;}
+
+             case 'u':{ced1.value += " ..- "; break;}
+
+             case 'v':{ced1.value += " ...- "; break;}
+
+             case 'w':{ced1.value += " .-- "; break;}
+
+             case 'x':{ced1.value += " -..- "; break;}
+
+             case 'y':{ced1.value += " -.-- "; break;}
+
+             case 'z':{ced1.value += " --.. "; break;}
+
+             case ' ':{ced1.value += " + "; break;}
+
+            }
+
+         }
+
+       }
+
+    }
+
+}
+
+
+
+function code2Text()
+
+{
+
+  var ced3 = ".- +", i, d, ced5, ced9="";
+
+  var ced4 = window.document.morse2.input2;
+
+  var ced1 = window.document.morse2.output2;
+
+  var ced2 = ced4.value.length;
+
+
+
+  for(ced5=0; ced5<ced2; ced5++)
+
+   {
+
+    switch (ced4.value.charAt(ced5))
+
+     {
+
+      case '.':{ced9 += "."; break;}
+
+      case '-':{ced9 += "-"; break;}
+
+      case '+':{ced1.value += " "; break;};
+
+      case ' ':
+
+       {switch(ced9)
+
+        {
+
+         case '.-':{ced1.value +="a"; ced9=""; break;}
+
+         case '-...':{ced1.value +="b"; ced9=""; break;}
+
+         case '-.-.':{ced1.value +="c"; ced9=""; break;}
+
+         case '-..':{ced1.value +="d"; ced9=""; break;}
+
+         case '.':{ced1.value +="e"; ced9=""; break;}
+
+         case '..-.':{ced1.value +="f"; ced9=""; break;}
+
+         case '--.':{ced1.value +="g"; ced9=""; break;}
+
+         case '....':{ced1.value +="h"; ced9=""; break;}
+
+         case '..':{ced1.value +="i"; ced9=""; break;}
+
+         case '.---':{ced1.value +="j"; ced9=""; break;}
+
+         case '-.-':{ced1.value +="k"; ced9=""; break;}
+
+         case '.-..':{ced1.value +="l"; ced9=""; break;}
+
+         case '--':{ced1.value +="m"; ced9=""; break;}
+
+         case '-.':{ced1.value +="n"; ced9=""; break;}
+
+         case '---':{ced1.value +="o"; ced9=""; break;}
+
+         case '.--.':{ced1.value +="p"; ced9=""; break;}
+
+         case '--.-':{ced1.value +="q"; ced9=""; break;}
+
+         case '.-.':{ced1.value +="r"; ced9=""; break;}
+
+         case '...':{ced1.value +="s"; ced9=""; break;}
+
+         case '-':{ced1.value +="t"; ced9=""; break;}
+
+         case '..-':{ced1.value +="u"; ced9=""; break;}
+
+         case '...-':{ced1.value +="v"; ced9=""; break;}
+
+         case '.--':{ced1.value +="w"; ced9=""; break;}
+
+         case '-..-':{ced1.value +="x"; ced9=""; break;}
+
+         case '-.--':{ced1.value +="y"; ced9=""; break;}
+
+         case '--..':{ced1.value +="z"; ced9=""; break;}
+
+        }break;
+
+       }
+
+     }
+
+   }
+
+}
+
+//-->
+
+</script><style type="text/css"></style>
+
+
+
+<script type="text/javascript" src="chrome-extension://bfbmjmiodbnnpllbbbfblcplfjjepjdn/js/injected.js"></script></head>
+
+<body bgcolor="FFFFFF" text="000000" link="0000FF" vlink="800080"><font face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular">
+
+
+
+
+<style type="text/css">
+<!--
+body { font-family: Tahoma, Verdana; }
+input.btn {
+  color:black;
+  font: bold 75% 'tahoma',helvetica,sans-serif;
+  background-color:#ffd148;
+  border: 2px solid;
+  border-color: #c7c5c8;
+ }
+ 
+ input.btn2 {
+  color:black;
+  font: bold 95% 'tahoma',helvetica,sans-serif;
+  background-color:#ffd148;
+  border: 2px solid;
+  border-color: #c7c5c8;
+ 
+}
+//-->
+</style>
+<meta name="viewport" content="width=958, initial-scale=1">
+<div align="center"><table width="949" border="0" cellpadding="0" bgcolor="#899194" cellspacing="0">
+  <tbody><tr>
+    <td colspan="13"><div align="left"><img src="./Virtual Text To Morse Code Converter - Morse Code To Text Converter_files/allbar_header.png" width="950" height="37" alt="CSGNetwork.com Free Information"></div></td>
+  </tr>
+<tr valign="middle"><td><div align="left" style="float:left;">
+<form action="http://www.csgnetwork.com/search_frame.html" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-8018289210612122:1424138921">
+    <input type="hidden" name="cof" value="FORID:10">
+    <input type="hidden" name="ie" value="UTF-8">
+    <input type="text" name="q" size="55" style="border: 1px solid rgb(126, 157, 185); padding: 2px; background: url(http://cse.google.com/cse/intl/en/images/google_custom_search_watermark.gif) 0% 50% no-repeat rgb(255, 255, 255);">
+    <input type="submit" name="sa" value="Search" class="btn">
+  </div>
+<input name="siteurl" type="hidden" value="www.csgnetwork.com/morsecodedeconv.html"><input name="ref" type="hidden" value="www.google.com.ph/"><input name="ss" type="hidden" value=""></form>
+</div>
+
+<div align="center" style="float:right; margin-right:40px;"><span style="decoration:none; color:white; font-weight:bold; font-size:smaller;">
+<a href="http://www.csgnetwork.com/" style="decoration:none; color:white;"><b>Home</b></a>  |  
+<a href="http://www.csgnetwork.com/top_free_apps.html" style="decoration:none; color:white;"><b>Top Free Apps</b></a>  |<br>
+<a href="http://www.csgnetwork.com/converters.html" style="decoration:none; color:white;"><b>CALCULATORS and CONVERTERS</b></a>  |  
+<a href="http://www.csgnetwork.com/morsecodedeconv.html#" onclick="history.go(-1)" style="decoration:none; color:white;"><b>Back</b></a> </span></div>
+</td></tr>
+</tbody></table></div>
+
+<br>
+<div align="center">
+
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+
+
+
+
+<table align="center" border="0" width="950" cellpadding="5">
+
+<tbody><tr bgcolor="#ffffff">
+
+<!--ROW 1-->
+
+<td width="80%">
+
+<h1>Text To Morse Code Converter<br>
+
+Morse Code To Text Converter</h1>
+
+<table align="center" border="5" cellpadding="5">
+
+<tbody><tr bgcolor="#B6D4D2">
+
+<td width="80%">
+
+<br>
+
+<br>
+
+<center>
+
+<table align="center" border="5" cellpadding="5">
+
+<tbody><tr bgcolor="#FFFFFF">
+<td valign="top">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-8018289210612122";
+/* Comm Calcs Left W Sky */
+google_ad_slot = "4305547325";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+
+
+</td>
+<!--ROW 1-->
+
+<td width="80%">
+
+
+
+<table align="center" border="5" cellpadding="5">
+
+<tbody><tr bgcolor="#FFFFFF">
+
+<td align="center" bgcolor="#FFFFFF">
+
+<center>
+
+<form name="morse" action="http://www.csgnetwork.com/get">
+
+<table align="center" border="5" cellpadding="5">
+
+<tbody><tr bgcolor="#B6D4D2">
+
+<td align="center" bgcolor="#B6D4D2">
+
+<b>TRANSLATOR</b>
+
+</td>
+
+</tr>
+
+<tr bgcolor="#B6D4D2">
+
+<td align="center">
+
+<b>Text To Morse Code</b>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="center">Enter Text In The Box Directly Below<br>
+
+<textarea name="input" cols="50" rows="10" onfocus="this.value=&#39;&#39;;" onkeyup="clearing(); text2Code();"></textarea>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="center">Converted Code In The Box Directly Below<br>
+
+<textarea name="output" cols="50" rows="10" readonly=""></textarea>
+
+</td>
+
+</tr>
+
+<tr bgcolor="#B6D4D2">
+
+<td align="center">
+
+<input type="button" value="Convert" onclick="clearing(); text2Code();"> 
+
+ <input type="reset" value="Clear This Converter">
+<br>
+<hr style="background:#ffd148; border:0; height:5px">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8018289210612122";
+/* Comm Mid 300 */
+google_ad_slot = "3059170769";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<hr style="background:#ffd148; border:0; height:5px">
+</td>
+
+</tr>
+
+
+
+<tr bgcolor="#B6D4D2">
+
+<td align="center" bgcolor="#B6D4D2">
+
+<b>TRANSLATOR</b> 
+
+</td>
+
+</tr>
+
+<form name="morse2" action="http://www.csgnetwork.com/get"></form>
+
+<tr bgcolor="#B6D4D2">
+
+<td align="center">
+
+<b>Morse Code To Text</b>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="center">Enter Code In The Box Directly Below<br>
+
+<textarea name="input2" cols="50" rows="10" onfocus="this.value=&#39;&#39;;" onkeyup="clearing2(); code2Text();"></textarea>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="center">Converted Text In The Box Directly Below<br>
+
+<textarea name="output2" cols="50" rows="10" readonly=""></textarea>
+
+</td>
+
+</tr>
+
+<tr bgcolor="#B6D4D2">
+
+<td align="center">
+
+<input type="button" value="Convert" onclick="clearing2(); code2Text();"> 
+
+ <input type="reset" value="Clear This Converter">
+
+</td>
+
+</tr>
+
+</tbody></table>
+
+
+
+</form></center></td>
+
+</tr>
+
+</tbody></table>
+
+
+
+</td>
+
+</tr>
+
+</tbody></table>
+
+</center>
+
+<center>
+
+Updated 8.12.11
+
+</center>
+
+</td>
+
+</tr>
+
+</tbody></table>
+
+
+
+</td>
+
+</tr>
+
+</tbody></table>
+
+
+
+
+
+<br>
+
+<br>
+
+<!-- google_ad_section_start(weight=ignore) -->
+<!--Below is thumbnail code for facebook-->
+<link rel="image_src" href="http://www.csgnetwork.com/Icons/thumb_information.png">
+<link rel="image_src" href="http://www.csgnetwork.com/Icons/thumb_calculator.png">
+
+<div style="clear:both;"></div>
+<div align="center">
+<table border="0" bgcolor="#FFFFFF" width="750">	   
+<tbody><tr><td><div style="float:left;font-size:smaller;margin-left:70px;">
+Leave us a question or comment on <a href="http://www.facebook.com/pages/CSGNetworkcom-Free-Apps/139436549442339" target="_blank">Facebook <img src="./Virtual Text To Morse Code Converter - Morse Code To Text Converter_files/facebook-icon.png" height="20" width="20" border="0"></a></div></td></tr>
+<tr valign="middle">
+<td></td><td colspan="2" bgcolor="#999DA8"><div align="center" style="font-size:14pt; color:#FFFFFF;"><b>Search or Browse Our Site</b></div></td>
+</tr><tr><td>  
+<div align="center">
+<script async="" src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- All pages Large Rectangle -->
+<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-8018289210612122" data-ad-slot="3358458988"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div></td>
+<!-- SiteSearch Google -->
+<td bgcolor="ffffff" valign="top">
+<div align="center"><table border="0" cellpadding="4" width="70%" bgcolor="FFFFFF">
+  <tbody><tr><td colspan="3"><div align="center">
+<form action="http://www.csgnetwork.com/search_frame.html" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-8018289210612122:li00ja-20in">
+    <input type="hidden" name="cof" value="FORID:10">
+    <input type="hidden" name="ie" value="ISO-8859-1">
+    <input type="text" name="q" size="40">
+    <input type="submit" class="btn2" width="40" name="sa" value="Search">
+  </div></form>
+<script async="" type="text/javascript" src="./Virtual Text To Morse Code Converter - Morse Code To Text Converter_files/brand"></script></div>
+</td></tr><tr valign="top" bgcolor="FFFFFF"><td><span style="font-size:smaller;">
+<a href="http://www.csgnetwork.com/automotiveconverters.html"><b>Automotive</b></a><br>
+<a href="http://www.csgnetwork.com/aviationconverters.html"><b>Aviation</b></a><br>
+<a href="http://www.csgnetwork.com/financialconverters.html"><b>Business</b></a><br>
+<a href="http://www.csgnetwork.com/communicateconverters.html"><b>Communications</b></a><br>
+<a href="http://www.csgnetwork.com/computerconverters.html"><b>Computer</b></a><br>
+<a href="http://www.csgnetwork.com/constructionconverters.html"><b>Construction</b></a><br>
+<a href="http://www.csgnetwork.com/electronicsconverters.html"><b>Electronics</b></a><br>
+<a href="http://www.csgnetwork.com/everydayconverters.html"><b>Everyday Use</b></a><br>
+<a href="http://www.csgnetwork.com/financialconverters.html"><b>Financial</b></a><br>
+<a href="http://www.csgnetwork.com/generalconverters.html"><b>General Interest</b></a><br>
+<a href="http://www.csgnetwork.com/geographyconverters.html"><b>Geography Related</b></a><br>
+<a href="http://www.csgnetwork.com/healthconverters.html"><b>Health</b></a></span>
+</td>   
+ <td width="125"><span style="font-size:smaller;">
+<a href="http://www.csgnetwork.com/constructionconverters.html"><b>Home Repair</b></a><br>
+<a href="http://www.csgnetwork.com/sssconverters.html"><b>Javascript</b></a><br>
+<a href="http://www.csgnetwork.com/lotterycalcs.html"><b>Lottery</b></a><br>
+<a href="http://www.csgnetwork.com/marineconverters.html"><b>Marine</b></a><br>
+<a href="http://www.csgnetwork.com/mathhelpconverters.html"><b>Math Help</b></a><br>
+<a href="http://www.csgnetwork.com/mathconverters.html"><b>Math Scripts</b></a><br>
+<a href="http://www.csgnetwork.com/automotiveconverters.html"><b>Mechanical</b></a><br>
+<a href="http://www.csgnetwork.com/financialconverters.html"><b>Money</b></a><br>
+<a href="http://www.csgnetwork.com/scienceconverters.html"><b>Science</b></a><br>
+<a href="http://www.csgnetwork.com/sportsconverters.html"><b>Sports</b></a><br>
+<a href="http://www.csgnetwork.com/timeconverters.html"><b>Time</b></a><br>
+<a href="http://www.csgnetwork.com/weatherconverters.html"><b>Weather</b></a></span>
+</td></tr></tbody></table>
+<!-- google_ad_section_stop(weight=ignore) -->
+</div></td></tr>
+<tr><td colspan="4"><div align="center"><img src="./Virtual Text To Morse Code Converter - Morse Code To Text Converter_files/allbottom.png" alt="Free Information Calculators and Converters"></div>
+</td></tr></tbody></table>
+
+<br>
+
+<br>
+<!-- google_ad_section_start(weight=ignore) -->
+<div align="center"><table width="950" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>
+</td>
+<td valign="middle" align="left"><img src="./Virtual Text To Morse Code Converter - Morse Code To Text Converter_files/cslogo.png" width="234" height="16" alt="International Copyright Violation" border="0"></td>
+</tr></tbody></table></div>
+<div align="center">
+<table border="0" cellpadding="0" cellspacing="0" width="950">
+<tbody><tr><td><script language="JavaScript"><!--
+    today=new Date();
+    y0=today.getFullYear();//  --->
+</script>
+<div align="center" style="font-size:x-small">Registered® Trademark™ and Copyright© 1973 - <script language="JavaScript">
+ <!--- 
+    document.write(y0);
+ // ---></script>2015
+<a href="http://www.csgnetwork.com/">CSG, Computer Support Group, Inc. and CSGNetwork.Com</a> All Rights Reserved</div><br>
+</td></tr></tbody></table>
+
+
+
+</div></div></font></body></html>

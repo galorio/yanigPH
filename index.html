@@ -1,0 +1,3567 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>yanigPH</title>
+
+
+
+    <!-- Sets initial viewport load and disables zooming  -->
+
+     <style>
+
+
+      #map-canvas {
+        width: 500px;
+        height: 400px;
+      }
+      #test {
+      height: 200px;
+      width: 200px;
+      border-radius: 200px;
+      border: 0px solid #000;
+      background-color:#D9534F;
+      }
+
+      #ilaw {
+      height: 75px;
+      width: 75px;
+      border-radius: 200px;
+      border: 0px solid #000;
+      background-color:#5CB85C;
+      }
+
+
+      .center {
+      margin: auto;
+      width: 69%;
+      border:0px solid #8AC007;
+      padding: 10px;
+      }
+    </style>
+
+    <!--<script src="https://maps.googleapis.com/maps/api/js"></script><-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+ 
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Include the compiled Ratchet CSS -->
+    <link href="ratchet-2.0.2\dist\css\ratchet.css" rel="stylesheet">
+    <link rel="stylesheet" href="ratchet-2.0.2/dist/css/ratchet.min.css">
+
+    <!-- Include the compiled Ratchet JS -->
+    <script src="ratchet-2.0.2\js\sliders.js"></script>
+    <script src="ratchet-2.0.2\js\segmented-controllers.js"></script>
+    <script src="ratchet-2.0.2\js\toggles.js"></script>
+    <script src="ratchet-2.0.2\js\popovers.js"></script>
+    <script src="assets\js\menu.js"></script>
+    <script src="phonegap.js"></script>  
+    <script src="device.js"></script>  
+    <script src="statusbar.js"></script>  
+    <script src="clipboard.js"></script>  
+    <script src="keyboard_toolbar_remover.js"></script>  
+    <script src="splashscreen.js"></script>  
+    <script src="vibration.js"></script>
+
+
+  </head>
+
+<script>
+         document.addEventListener("deviceready", onDeviceReady, false);
+
+    // Cordova is ready
+    //
+    function onDeviceReady() {
+        // Empty
+    }
+
+    // Show a custom alert
+    //
+    function showAlert() {
+        navigator.notification.alert(
+            'You are the winner!',  // message
+            'Game Over',            // title
+            'Done'                  // buttonName
+        );
+    }
+
+    // Beep three times
+    //
+    function playBeep() {
+        navigator.notification.beep(3);
+    }
+
+    // Vibrate for 2 seconds
+    //
+    function vibrate() {
+        navigator.notification.vibrate(2000);
+    }
+
+    </script>
+
+
+
+
+  <body onload="cliSos()">
+
+    <!-- Make sure all your bars are the first things in your <body> -->
+
+
+    <header class="bar bar-nav">
+  <a href="#popover">
+    <h1 class="title">
+      <font color="teal" size="4"><strong>yanigPH
+      <span class="icon icon-caret"></span></strong></font>
+      </h1>
+  </a>
+</header>
+
+
+
+<nav class="bar bar-tab">
+  <a class="tab-item" onclick="cliSos()">
+    <span class="icon icon-home"></span>
+    <span class="tab-label">SOS</span>
+  </a>
+  <a class="tab-item" onclick="cliMorseCode()">
+    <span class="icon icon-more"></span>
+    <span class="tab-label">Morse Code</span>
+  </a>
+  <a class="tab-item" onclick="cliMenu()">
+    <span class="icon icon-bars"></span>
+    <span class="tab-label">Menu</span>
+  </a>
+    <a class="tab-item" onclick="cliEmerHot()">
+    <span class="icon icon-person"></span>
+    <span class="tab-label">Hotlines</span>
+  </a>
+    </a>
+    <a class="tab-item" onclick="cliAbout()">
+    <span class="icon icon-info"></span>
+    <span class="tab-label">About</span>
+  </a>
+</nav>
+
+
+
+<div id="popover" class="popover">
+  <header class="bar bar-nav">
+    <h1 class="title">The Team</h1>
+  </header>
+  <ul class="table-view">
+    
+    
+    
+    <li class="table-view-cell">Maricar Abrigo</li>
+    <li class="table-view-cell">Dominic Enaje</li>
+    <li class="table-view-cell">Joane Enfestan</li>
+    <li class="table-view-cell">Paul Evangelista</li>
+    <li class="table-view-cell">Ma. Concepcion Hernandez</li>
+    <li class="table-view-cell">Ana Liza Galas</li>
+    <li class="table-view-cell">Arnel Galorio</li>
+    <li class="table-view-cell">Ralph Martin Juano</li>
+    <li class="table-view-cell">Mark Sonny Lopez</li>
+    <li class="table-view-cell">Bonnay May Valebia</li>
+    
+  </ul>
+</div>
+
+
+
+    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+    <div class="content">
+
+
+
+    <div id="sos">   
+
+    <p class="content-padded" align="center" >Send a distress signal using Morse code </p>
+
+    <div class="center">
+
+    <audio id="sosaudio" source src="assets/mp3/sos.mp3"></audio>
+    <audio id="sosaudio2" source src="assets/mp3/sos.mp3"></audio>
+
+      
+      <center><button id="test" onclick="toggleSound(); document.getElementById('sosaudio').loop=true;"><h1><font color="white">SOS</h1>continuous audio</font></button></center>
+         <br/>
+
+          <script>
+              function toggleSound() {
+                var audioElem = document.getElementById('sosaudio');
+                if (audioElem.paused)
+                  audioElem.play();
+                else
+                  audioElem.pause();
+                 audioElem.currentTime = 0;
+              }
+              </script>
+
+
+              <script type="text/javascript">
+
+function morselightSos(){
+
+window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+    // switch on
+    window.plugins.flashlight.switchOn();  
+
+    // switch off after 3 seconds
+    setTimeout(function() {
+      window.plugins.flashlight.switchOff();  
+    }, 100);
+
+     setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 200);
+
+       setTimeout(function() {
+      window.plugins.flashlight.switchOff();  
+    }, 300);
+              setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 400);
+                     setTimeout(function() {
+      window.plugins.flashlight.switchOff();  
+    }, 500);
+
+     //O
+
+      setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 800);  setTimeout(function() {
+
+      window.plugins.flashlight.switchOff();  
+    }, 1200);
+
+     setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 1300);
+
+       setTimeout(function() {
+      window.plugins.flashlight.switchOff();  
+    }, 1600);
+              setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 1700);
+                     setTimeout(function() {
+      window.plugins.flashlight.switchOff();  
+    }, 2000);
+
+
+      setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 2100);  setTimeout(function() {
+
+      window.plugins.flashlight.switchOff();  
+    }, 2200);
+
+     setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 2300);
+
+       setTimeout(function() {
+      window.plugins.flashlight.switchOff();  
+    }, 2400);
+              setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 2500);
+                     setTimeout(function() {
+      window.plugins.flashlight.switchOff();  
+    }, 2600);
+  } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+
+
+function morseLoop(){
+
+	setInterval(function(){
+	 
+window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+    // switch on
+    window.plugins.flashlight.switchOn();  
+
+    // switch off after 3 seconds
+    setTimeout(function() {
+      window.plugins.flashlight.switchOff();  
+    }, 100);
+
+     setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 200);
+
+       setTimeout(function() {
+      window.plugins.flashlight.switchOff();  
+    }, 300);
+              setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 400);
+                     setTimeout(function() {
+      window.plugins.flashlight.switchOff();  
+    }, 500);
+
+     //O
+
+      setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 800);  setTimeout(function() {
+
+      window.plugins.flashlight.switchOff();  
+    }, 1200);
+
+     setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 1300);
+
+       setTimeout(function() {
+      window.plugins.flashlight.switchOff();  
+    }, 1600);
+              setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 1700);
+                     setTimeout(function() {
+      window.plugins.flashlight.switchOff();  
+    }, 2000);
+
+
+      setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 2100);  setTimeout(function() {
+
+      window.plugins.flashlight.switchOff();  
+    }, 2200);
+
+     setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 2300);
+
+       setTimeout(function() {
+      window.plugins.flashlight.switchOff();  
+    }, 2400);
+              setTimeout(function() {
+      window.plugins.flashlight.switchOn();  
+    }, 2500);
+                     setTimeout(function() {
+      window.plugins.flashlight.switchOff();  
+    }, 2600);
+  } else {
+    alert("Flashlight not available on this device");
+  }
+});
+	}, 2900);
+}
+              </script>
+              <table align="center" >
+              <tr>
+              <td>
+              <center><button id="ilaw" onclick="onoff()"><font color="white" size="2" align="left">flash</font></button></center>
+              </td>
+              <td>&nbsp; &nbsp; &nbsp;</td>
+              <td cellpadding="10">
+              <center><button id="ilaw" onclick="morselightSos(); toggleSoundFlash(); document.getElementById('sosaudio2').play()"><font color="white" size="2">audio with light</font></button></center>
+              </td>
+              </tr>
+              </table>
+
+
+        
+        <script>
+              function toggleSoundFlash() {
+                var audioElem = document.getElementById('sosaudio2');
+                if (audioElem.paused)
+                  audioElem.play();
+
+          		
+                else
+                  audioElem.pause();
+                 audioElem.currentTime = 0;
+              }
+              </script>
+
+
+
+<script>
+
+  function onoff()
+  {
+     window.plugins.flashlight.toggle();
+  }
+</script>
+
+
+
+
+    </div>
+
+       <p class="content-padded" align="center">This will produce a continuous beeping sound and a flashing light sending an SOS message</p>
+
+</div>
+ 
+
+
+
+
+
+<div id="morsecode">
+
+<script>
+	function morselightA(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn();
+    	setTimeout(function() {
+     	 window.plugins.flashlight.switchOff();
+   	}, 100);
+   	setTimeout(function() {
+   	window.plugins.flashlight.switchOn();
+   	}, 200);
+    	setTimeout(function() {
+     	 window.plugins.flashlight.switchOff();
+   	}, 500);
+        } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+function morselightB(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+	window.plugins.flashlight.switchOn();
+    	setTimeout(function() {
+     	 window.plugins.flashlight.switchOff();
+   	}, 300);
+   	setTimeout(function() {
+   	window.plugins.flashlight.switchOn();
+   	}, 400);
+    	setTimeout(function() {
+     	 window.plugins.flashlight.switchOff();
+   	}, 500);
+   	setTimeout(function() {
+   	window.plugins.flashlight.switchOn();
+   	}, 600);
+    	setTimeout(function() {
+     	 window.plugins.flashlight.switchOff();
+   	}, 700);
+   	setTimeout(function() {
+     	 window.plugins.flashlight.switchOn();
+   	}, 800);
+   	setTimeout(function() {
+     	 window.plugins.flashlight.switchOff();
+   	}, 900);
+      } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+
+function morselightC(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn();
+    	setTimeout(function() {
+     	 window.plugins.flashlight.switchOff();
+   	}, 300);
+   	setTimeout(function() {
+   	window.plugins.flashlight.switchOn();
+   	}, 400);
+    	setTimeout(function() {
+     	 window.plugins.flashlight.switchOff();
+   	}, 500);
+   	setTimeout(function() {
+   	window.plugins.flashlight.switchOn();
+   	}, 600);
+    	setTimeout(function() {
+     	 window.plugins.flashlight.switchOff();
+   	}, 900);
+   	setTimeout(function() {
+     	 window.plugins.flashlight.switchOn();
+   	}, 1000);
+   	setTimeout(function() {
+     	 window.plugins.flashlight.switchOff();
+   	}, 1100);
+      } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+function morselightD(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn();
+    	setTimeout(function() {
+     	 window.plugins.flashlight.switchOff();
+   	}, 300);
+   	setTimeout(function() {
+   	window.plugins.flashlight.switchOn();
+   	}, 400);
+    	setTimeout(function() {
+     	 window.plugins.flashlight.switchOff();
+   	}, 500);
+   	setTimeout(function() {
+   	window.plugins.flashlight.switchOn();
+   	}, 600);
+    	setTimeout(function() {
+     	 window.plugins.flashlight.switchOff();
+   	}, 700);
+        } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightE(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+function morselightF(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 900);
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightG(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 900);
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+
+function morselightH(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 700);
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightI(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 300);
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+function morselightJ(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1300);
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightK(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 900);
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+function morselightL(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 900);
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightM(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 700);
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightN(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 500);
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+function morselightO(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1100);
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightP(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1100);
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+
+
+function morselightQ(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 900);
+ 	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1300);
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightR(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 700);
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+
+function morselightS(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+   	window.plugins.flashlight.switchOn();
+    	setTimeout(function() {
+     	window.plugins.flashlight.switchOff();
+    	}, 100);
+     	setTimeout(function() {
+      	window.plugins.flashlight.switchOn(); 
+    	}, 200);
+      	setTimeout(function() {
+      	window.plugins.flashlight.switchOff(); 
+    	}, 300);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 400);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 500);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightT(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+   	window.plugins.flashlight.switchOn();
+    	setTimeout(function() {
+     	window.plugins.flashlight.switchOff();
+    	}, 300);
+        } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightU(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+   	window.plugins.flashlight.switchOn();
+    	setTimeout(function() {
+     	window.plugins.flashlight.switchOff();
+    	}, 100);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 200);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 300);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 400);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 700);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightV(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+   	window.plugins.flashlight.switchOn();
+    	setTimeout(function() {
+     	window.plugins.flashlight.switchOff();
+    	}, 100);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 200);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 300);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 400);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 500);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 600);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 900);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightW(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+   	window.plugins.flashlight.switchOn();
+    	setTimeout(function() {
+     	window.plugins.flashlight.switchOff();
+    	}, 100);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 200);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 500);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 600);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 900);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightX(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+   	window.plugins.flashlight.switchOn();
+    	setTimeout(function() {
+     	window.plugins.flashlight.switchOff();
+    	}, 300);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 400);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 500);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 600);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 700);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 800);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 1100);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightY(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+   	window.plugins.flashlight.switchOn();
+    	setTimeout(function() {
+     	window.plugins.flashlight.switchOff();
+    	}, 300);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 400);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 500);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 600);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 900);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 1000);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 1300);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightZ(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+   	window.plugins.flashlight.switchOn();
+    	setTimeout(function() {
+     	window.plugins.flashlight.switchOff();
+    	}, 300);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 400);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 700);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 800);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 900);
+    	setTimeout(function() {
+      	window.plugins.flashlight.switchOn();  
+    	}, 1000);
+        setTimeout(function() {
+      	window.plugins.flashlight.switchOff();  
+    	}, 1100);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+
+function morselightOne(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+      window.plugins.flashlight.switchOn();
+      setTimeout(function() {
+      window.plugins.flashlight.switchOff();
+      }, 100);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 200);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 500);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 600);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 900);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 1000);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1300);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 1400);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1700);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightTwo(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+    window.plugins.flashlight.switchOn();
+      setTimeout(function() {
+      window.plugins.flashlight.switchOff();
+      }, 100);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 200);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 300);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 400);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 700);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 800);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1100);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 1200);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1500);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightThree(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+    window.plugins.flashlight.switchOn();
+      setTimeout(function() {
+      window.plugins.flashlight.switchOff();
+      }, 100);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 200);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 300);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 400);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 500);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 600);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1100);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 1200);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1500);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+
+function morselightFour(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+    window.plugins.flashlight.switchOn();
+      setTimeout(function() {
+      window.plugins.flashlight.switchOff();
+      }, 100);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 200);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 300);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 400);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 500);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 600);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 700);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 800);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1100);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightFive(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+    window.plugins.flashlight.switchOn();
+      setTimeout(function() {
+      window.plugins.flashlight.switchOff();
+      }, 100);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 200);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 300);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 400);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 500);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 600);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 700);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 800);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 900);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightSix(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+    window.plugins.flashlight.switchOn();
+      setTimeout(function() {
+      window.plugins.flashlight.switchOff();
+      }, 300);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 400);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 500);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 600);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 700);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 800);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 900);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 1000);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1100);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightSeven(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+    window.plugins.flashlight.switchOn();
+      setTimeout(function() {
+      window.plugins.flashlight.switchOff();
+      }, 300);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 400);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 700);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 800);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 900);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 1000);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1100);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 1200);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1300);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightEight(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+    window.plugins.flashlight.switchOn();
+      setTimeout(function() {
+      window.plugins.flashlight.switchOff();
+      }, 300);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 400);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 700);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 800);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1100);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 1200);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1300);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 1400);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1500);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+function morselightNine(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+    window.plugins.flashlight.switchOn();
+      setTimeout(function() {
+      window.plugins.flashlight.switchOff();
+      }, 300);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 400);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 700);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 800);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1100);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 1200);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1500);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 1600);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1700);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+
+function morselightZero(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+
+    window.plugins.flashlight.switchOn();
+      setTimeout(function() {
+      window.plugins.flashlight.switchOff();
+      }, 300);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 400);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 700);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 800);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1100);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 1200);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1500);
+      setTimeout(function() {
+        window.plugins.flashlight.switchOn();  
+      }, 1600);
+        setTimeout(function() {
+        window.plugins.flashlight.switchOff();  
+      }, 1900);
+          } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+
+</script>
+
+<audio id="a" src="assets/mp3/alpha/a.mp3"></audio>
+<audio id="b" src="assets/mp3/alpha/b.mp3"></audio>
+<audio id="c" src="assets/mp3/alpha/c.mp3"></audio>
+<audio id="d" src="assets/mp3/alpha/d.mp3"></audio>
+<audio id="e" src="assets/mp3/alpha/e.mp3"></audio>
+<audio id="f" src="assets/mp3/alpha/f.mp3"></audio>
+<audio id="g" src="assets/mp3/alpha/g.mp3"></audio>
+<audio id="h" src="assets/mp3/alpha/h.mp3"></audio>
+<audio id="i" src="assets/mp3/alpha/i.mp3"></audio>
+<audio id="j" src="assets/mp3/alpha/j.mp3"></audio>
+<audio id="k" src="assets/mp3/alpha/k.mp3"></audio>
+<audio id="l" src="assets/mp3/alpha/l.mp3"></audio>
+<audio id="m" src="assets/mp3/alpha/m.mp3"></audio>
+<audio id="n" src="assets/mp3/alpha/n.mp3"></audio>
+<audio id="o" src="assets/mp3/alpha/o.mp3"></audio>
+<audio id="p" src="assets/mp3/alpha/p.mp3"></audio>
+<audio id="q" src="assets/mp3/alpha/q.mp3"></audio>
+<audio id="r" src="assets/mp3/alpha/r.mp3"></audio>
+<audio id="s" src="assets/mp3/alpha/s.mp3"></audio>
+<audio id="t" src="assets/mp3/alpha/t.mp3"></audio>
+<audio id="u" src="assets/mp3/alpha/u.mp3"></audio>
+<audio id="v" src="assets/mp3/alpha/v.mp3"></audio>
+<audio id="w" src="assets/mp3/alpha/w.mp3"></audio>
+<audio id="x" src="assets/mp3/alpha/x.mp3"></audio>
+<audio id="y" src="assets/mp3/alpha/y.mp3"></audio>
+<audio id="z" src="assets/mp3/alpha/z.mp3"></audio>
+<audio id="0" src="assets/mp3/num/0.mp3"></audio>
+<audio id="1" src="assets/mp3/num/1.mp3"></audio>
+<audio id="2" src="assets/mp3/num/2.mp3"></audio>
+<audio id="3" src="assets/mp3/num/3.mp3"></audio>
+<audio id="4" src="assets/mp3/num/4.mp3"></audio>
+<audio id="5" src="assets/mp3/num/5.mp3"></audio>
+<audio id="6" src="assets/mp3/num/6.mp3"></audio>
+<audio id="7" src="assets/mp3/num/7.mp3"></audio>
+<audio id="8" src="assets/mp3/num/8.mp3"></audio>
+<audio id="9" src="assets/mp3/num/9.mp3"></audio>
+
+<audio id="ampersand" src="assets/mp3/punc/ampersand.mp3"></audio>
+<audio id="apostrope" src="assets/mp3/punc/apostrope.mp3"></audio>
+<audio id="at" src="assets/mp3/punc/at.mp3"></audio>
+<audio id="colon" src="assets/mp3/punc/colon.mp3"></audio>
+<audio id="comma" src="assets/mp3/punc/comma.mp3"></audio>
+<audio id="dollar-sign" src="assets/mp3/punc/dollar-sign.mp3"></audio>
+<audio id="equals" src="assets/mp3/punc/equals.mp3"></audio>
+<audio id="exclamation-point" src="assets/mp3/punc/exclamation-point.mp3"></audio>
+<audio id="hyphen-minus" src="assets/mp3/punc/hyphen-minus.mp3"></audio>
+<audio id="parenthesis-close" src="assets/mp3/punc/parenthesis-close.mp3"></audio>
+<audio id="parenthesis-open" src="assets/mp3/punc/parenthesis-open.mp3"></audio>
+<audio id="period" src="assets/mp3/punc/period.mp3"></audio>
+<audio id="plus" src="assets/mp3/punc/plus.mp3"></audio>
+<audio id="question-mark" src="assets/mp3/punc/question-mark.mp3"></audio>
+<audio id="quotation-mark" src="assets/mp3/punc/quotation-mark.mp3"></audio>
+<audio id="semicolon" src="assets/mp3/punc/semicolon.mp3"></audio>
+<audio id="slash" src="assets/mp3/punc/slash.mp3"></audio>
+<audio id="underscore" src="assets/mp3/punc/underscore.mp3"></audio>
+
+<audio id="assist-me" src="assets/mp3/phrases/assist-me.mp3"></audio>
+<audio id="help" src="assets/mp3/phrases/help.mp3"></audio>
+<audio id="help-me" src="assets/mp3/phrases/help-me.mp3"></audio>
+<audio id="im-here" src="assets/mp3/phrases/im-here.mp3"></audio>
+<audio id="im-trapped" src="assets/mp3/phrases/im-trapped.mp3"></audio>
+<audio id="i-need-food" src="assets/mp3/phrases/i-need-food.mp3"></audio>
+<audio id="please" src="assets/mp3/phrases/please.mp3"></audio>
+<audio id="rescue-me" src="assets/mp3/phrases/rescue-me.mp3"></audio>
+
+
+
+ <ul class="table-view">
+        <li class="table-view-cell media">
+            <span class="media-object pull-left icon icon-more"></span>
+            <div class="media-body">
+              <b>Morse Code</b>
+            </div>
+          </a>
+        </li>
+  </ul>
+
+  <div class="segmented-control">
+  <a class="control-item active" href="#letters">
+    Letters
+  </a>
+  <a class="control-item" href="#numbers">
+    Numbers
+  </a>
+  <a class="control-item" href="#phrases">
+    Phrases
+  </a>
+</div>
+<div class="card">
+  <span id="letters" class="control-content active">
+    
+      <ul class="table-view">
+        <li class="table-view-cell">A, a (&#9679; &ndash;)
+        <button class="btn btn-positive" onclick="morselightA(); document.getElementById('a').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> B, b (&ndash; &#9679; &#9679; &#9679;)
+        <button class="btn btn-positive" onclick="morselightB(); document.getElementById('b').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell">  C, c (&ndash; &#9679; &ndash; &#9679;)
+        <button class="btn btn-positive" onclick="morselightC(); document.getElementById('c').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> D, d (&ndash; &#9679; &#9679;)
+        <button class="btn btn-positive" onclick="morselightD(); document.getElementById('d').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> E, e (&#9679;)
+        <button class="btn btn-positive" onclick="morselightE(); document.getElementById('e').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> F, f (&#9679; &#9679; &ndash; &#9679;)
+        <button class="btn btn-positive" onclick="morselightF(); document.getElementById('f').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> G, g (&ndash; &ndash; &#9679;)
+        <button class="btn btn-positive" onclick="morselightG(); document.getElementById('g').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> H, h (&#9679; &#9679; &#9679; &#9679;)
+        <button class="btn btn-positive" onclick="morselightH(); document.getElementById('h').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> I, i (&#9679; &#9679;)
+        <button class="btn btn-positive" onclick="morselightI(); document.getElementById('i').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> J, j (&#9679; &ndash; &ndash; &ndash;)
+        <button class="btn btn-positive" onclick="morselightJ(); document.getElementById('j').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> K, k (&ndash; &#9679; &ndash;)
+        <button class="btn btn-positive" onclick="morselightK(); document.getElementById('k').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> L, l (&#9679; &ndash; &#9679; &#9679;)
+        <button class="btn btn-positive" onclick="morselightL(); document.getElementById('l').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> M, m (&ndash; &ndash;)
+        <button class="btn btn-positive" onclick="morselightM(); document.getElementById('m').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> N, n (&ndash; &#9679;)
+        <button class="btn btn-positive" onclick="morselightN(); document.getElementById('n').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> O, o (&ndash; &ndash; &ndash;)
+        <button class="btn btn-positive" onclick="morselightO(); document.getElementById('o').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> P, p (&#9679; &ndash; &ndash; &#9679;)
+        <button class="btn btn-positive" onclick="morselightP(); document.getElementById('p').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> Q, q (&ndash; &ndash; &#9679; &ndash;)
+        <button class="btn btn-positive" onclick="morselightQ(); document.getElementById('q').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> R, r (&#9679; &ndash;  &#9679;)
+        <button class="btn btn-positive" onclick="morselightR(); document.getElementById('r').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> S, s (&#9679; &#9679; &#9679;)
+        <button class="btn btn-positive" onclick="morselightS(); document.getElementById('s').play();">Play</button>
+        </li>
+
+        <li class="table-view-cell"> T, t (&ndash;)
+        <button class="btn btn-positive" onclick="morselightT(); document.getElementById('t').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> U, u (&#9679; &#9679; &ndash;)
+        <button class="btn btn-positive" onclick="morselightU(); document.getElementById('u').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> V, v (&#9679; &#9679; &#9679; &ndash;)
+        <button class="btn btn-positive" onclick="morselightV(); document.getElementById('v').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> W, w (&#9679; &ndash; &ndash;)
+        <button class="btn btn-positive" onclick="morselightW(); document.getElementById('w').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> X, x (&ndash; &#9679; &#9679; &ndash;)
+        <button class="btn btn-positive" onclick="morselightX(); document.getElementById('x').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> Y, y (&ndash; &#9679; &ndash; &ndash;)
+        <button class="btn btn-positive" onclick="morselightY(); document.getElementById('y').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> Z, z (&ndash; &ndash; &#9679; &#9679;)
+        <button class="btn btn-positive" onclick="morselightZ(); document.getElementById('z').play()">Play</button>
+        </li>
+
+      </ul>
+
+  </span>
+  <span id="numbers" class="control-content">
+    <ul class="table-view">
+      <li class="table-view-cell"> 0 (&ndash; &ndash; &ndash; &ndash; &ndash;)
+      <button class="btn btn-positive" onclick="morselightZero(); document.getElementById('0').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 1 (&#9679; &ndash; &ndash; &ndash; &ndash;)
+      <button class="btn btn-positive" onclick="morselightOne(); document.getElementById('1').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 2 (&#9679; &#9679; &ndash; &ndash; &ndash;)
+      <button class="btn btn-positive" onclick="morselightTwo(); document.getElementById('2').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 3 (&#9679; &#9679; &#9679; &ndash; &ndash;)
+      <button class="btn btn-positive" onclick="morselightThree(); document.getElementById('3').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 4 (&#9679; &#9679; &#9679; &#9679; &ndash;)
+      <button class="btn btn-positive" onclick="morselightFour(); document.getElementById('4').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 5 (&#9679; &#9679; &#9679; &#9679; &#9679;)
+      <button class="btn btn-positive" onclick="morselightFive(); document.getElementById('5').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 6 (&ndash; &#9679; &#9679; &#9679; &#9679;)
+      <button class="btn btn-positive" onclick="morselightSix(); document.getElementById('6').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 7 (&ndash; &ndash; &#9679; &#9679; &#9679;)
+      <button class="btn btn-positive" onclick="morselightSeven(); document.getElementById('7').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 8 (&ndash; &ndash; &ndash; &#9679; &#9679;)
+      <button class="btn btn-positive" onclick="morselightEight(); document.getElementById('8').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 9 (&ndash; &ndash; &ndash; &ndash; &#9679;)
+      <button class="btn btn-positive" onclick="morselightNine(); document.getElementById('9').play()">Play</button>
+      </li>
+
+    </ul>
+
+  </span>
+  <span id="phrases" class="control-content">
+    <ul class="table-view">
+
+        <li class="table-view-cell">Help
+        <button class="btn btn-positive" onclick="morselightHelp(); document.getElementById('help').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell">Help me
+        <button class="btn btn-positive" onclick="morselightHelpMe(); document.getElementById('help-me').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell">Im trapped
+        <button class="btn btn-positive" onclick="morselightImTrapped(); document.getElementById('im-trapped').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell">Rescue me
+        <button class="btn btn-positive" onclick="morselightRescueMe(); document.getElementById('rescue-me').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell">I need food
+        <button class="btn btn-positive" onclick="morselightINeedFood(); document.getElementById('i-need-food').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell">Im here
+        <button class="btn btn-positive" onclick="morselightImHere(); document.getElementById('im-here').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell">Please
+        <button class="btn btn-positive" onclick="morselightPlease(); document.getElementById('please').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell">Assist me
+        <button class="btn btn-positive" onclick="morselightAssistMe(); document.getElementById('assist-me').play()">Play</button>
+        </li>
+
+      </ul>
+
+  </span>
+</div>
+
+</div>
+
+
+
+<div id="survgu">
+
+   <ul class="table-view">
+        <li class="table-view-cell media">
+            <span class="media-object pull-left icon icon-check"></span>
+            <div class="media-body">
+              <b>Survival Guidelines</b>
+            </div>
+          </a>
+        </li>
+      </ul>
+
+
+    <div class="segmented-control">
+  <a class="control-item active" href="#item1mobile">
+    During
+  </a>
+  <a class="control-item" href="#item2mobile">
+    After
+  </a>
+</div>
+<div class="card">
+  <span id="item1mobile" class="control-content active">
+
+  <ul class="table-view">
+      <li class="table-view-cell media">
+    <a>
+      <span class="icon icon-check"></span>
+        1. Protect yourself 
+      <p class="content-padded">If you are indoors, stay there. Quickly move to a safe location in the room such as under a strong desk, a strong table, or along an interior wall. The goal is to protect yourself from falling objects and be located near the structural strong points of the room. Avoid taking cover near windows, large mirrors, hanging objects, heavy furniture, heavy appliances or fireplaces</p>
+    </a>
+  </li>
+  <li class="table-view-cell media">
+    <a>
+      <span class="icon icon-check"></span>
+        2. Move to an open area 
+        <p class="content-padded">If you are outdoors, move to an open area where falling objects are unlikely to strike you. Move away from buildings, powerlines and trees.</p>
+      
+    </a>
+  </li>
+   <li class="table-view-cell media">
+    <a>
+      <span class="icon icon-check"></span>
+        3. Stop and observe 
+        <p class="content-padded">If you're in a car, stop the car and stay inside the car until the earthquake stops.</p>
+      
+    </a>
+  </li>
+   <li class="table-view-cell media">
+    <a>
+      <span class="icon icon-check"></span>
+        4. Use the straircase 
+        <p class="content-padded">Don't use elevators (they'll probably get stuck anyway).</p>
+      
+    </a>
+  </li>
+  </ul>
+  
+  </span>
+
+  <span id="item2mobile" class="control-content">
+    <ul class="table-view">
+  <li class="table-view-cell media">
+    <a>
+      <span class="icon icon-check"></span>
+        1. Check for injuries 
+      <p class="content-padded">Check for injuries, attend to injuries if needed, help ensure the safety of people around you.</p>
+    </a>
+  </li>
+  <li class="table-view-cell media">
+    <a>
+      <span class="icon icon-check"></span>
+        2. Inspect damages
+        <p class="content-padded">Check for damage. If your building is badly damaged you should leave it until it has been inspected by a safety professional.</p>
+      
+    </a>
+  </li>
+  <li class="table-view-cell media">
+    <a>
+
+      <div class="media-body">
+      <span class="icon icon-check"></span>
+        3. Check gas leaks
+        <p class="content-padded">If you smell or hear a gas leak, get everyone outside and open windows and doors. If you can do it safely, turn off the gas at the meter. Report the leak to the gas company and fire department. Do not use any electrical appliances because a tiny spark could ignite the gas.</p>
+      </div>
+    </a>
+  </li>
+    <li class="table-view-cell media">
+    <a>
+
+      <div class="media-body">
+      <span class="icon icon-check"></span>
+        4. Unplug appliances
+        <p class="content-padded">If the power is out, unplug major appliances to prevent possible damage when the power is turned back on. If you see sparks, frayed wires, or smell hot insulation turn off electricity at the main fuse box or breaker. If you will have to step in water to turn off the electricity you should call a professional to turn it off for you.</p>
+      </div>
+    </a>
+  </li>
+      <li class="table-view-cell media">
+    <a>
+
+      <div class="media-body">
+      <span class="icon icon-check"></span>
+        5. Move away
+        <p class="content-padded">Stay away from beaches. Tsunamis and seiches sometimes hit after the ground has stopped shaking.</p>
+      </div>
+    </a>
+  </li>
+</ul>
+  </span>
+</div>
+
+</div>
+
+<div id="faqs">
+
+
+        <ul class="table-view">
+        <li class="table-view-cell media">
+            <span class="media-object pull-left icon icon-search"></span>
+            <div class="media-body">
+              <b>FAQs</b>
+            </div>
+          </a>
+        </li>
+      </ul>
+
+          <p class="content-padded"><font color="black"><b>What is an earthquake?</b></font></p>
+          <p class="content-padded">A trembling or shaking of the ground caused by the sudden release of energy stored in the rocks below the surface, radiating from a fault along which movement has just taken place.</p>
+
+          <p class="content-padded"><font color="black"><b>How long do earthquakes last?</b></font></p>
+          <p class="content-padded">Generally, only seconds. Strong ground shaking during a moderate to large earthquake typically lasts about 10 to 30 seconds. Readjustments in the earth cause more earthquakes (aftershocks) that can occur intermittently for weeks or months.</p>
+
+
+          <p class="content-padded"><font color="black"><b>Is there an 'earthquake season' or 'earthquake weather'?</b></font></p>
+          <p class="content-padded">No. Earthquakes can occur at any time of the year and at any time of the day or night. Earthquakes occur under all weather conditions, sunny, wet, hot, or cold--without special tendency.</p>
+
+          <p class="content-padded"><font color="black"><b>Where is the safest place to be in an earthquake?</b></font></p>
+          <p class="content-padded">In an open field, where nothing can fall on you. Earthquakes do not injure or kill people; buildings and falling objects do. If you are indoors, when you feel the ground start to shake, take cover immediately under a table or sturdy piece of furniture, placing a barrier between falling objects and yourself. Do not attempt to use the stairs or an elevator or run out of the building.</p>
+
+
+          <p class="content-padded"><font color="black"><b>Will the ground open up during an earthquake?</b></font></p>
+          <p class="content-padded">The ground does not open up and swallow people (a commonly feared myth). Open ground cracks may form during an earthquake--related, for example, to landsliding or ground slumping. But such fissures are open gaps (they don't "swallow") that a person could stand in.</p>
+
+          <p class="content-padded"><font color="black"><b>What is a seismometer, seismograph, and a seismogram?</b></font></p>
+          <p class="content-padded">A seismometer is a sensor placed in the ground to detect vibrations of the earth. A seismograph is an instrument that records these vibrations. A seismogram is the recording (usually paper or film) of the earth's vibrations made by a seismograph.</p>
+
+
+          <p class="content-padded"><font color="black"><b>When was the seismograph invented?</b></font></p>
+          <p class="content-padded">In 1880. The earliest seismographs in the U.S. were installed in 1887, in California. (In 132 A.D. a Chinese scholar, Chang Heng, made a mechanical device to detect the first main impulse of ground shaking.)</p>
+
+          <p class="content-padded"><font color="black"><b>What is the Richter Scale?</b></font></p>
+          <p class="content-padded">A scale for determining the size of an earthquake from the recording of earthquake waves made on a seismograph. The maximum height of the visible recording is adjusted for the distance from the instrument to the earthquake. This is not a physical scale (in other words, one cannot look at or hold the "Richter Scale"). Each 1-unit increase in the Richter Scale roughly corresponds to a 30-fold increase in energy release and a 10-fold increase in ground motion at any site.</p>
+
+
+          <p class="content-padded"><font color="black"><b>Do many small earthquakes prevent larger earthquakes?</b></font></p>
+          <p class="content-padded">No. Observed numbers of small earthquakes are too few to equal the amount of energy released in one large earthquake. (It would take roughly 24 million earthquakes of magnitude 2 to release the same energy as one earthquake of magnitude 7.)</p>
+
+          <p class="content-padded"><font color="black"><b>Can we predict earthquakes?</b></font></p>
+          <p class="content-padded">No. We cannot predict the precise time, location, and size of earthquakes. In order to predict earthquakes there has to be an adequate history of repeated earthquake cycles and/or extraordinary instrumental observations. Long-term forecasts (on scales of years or decades) are becoming common for well-studied earthquake zones. The Chinese have correctly predicted some earthquakes, evacuated cities and saved lives. They have also had large earthquakes occur with no predictions and have predicted earthquakes that never occurred.</p>
+
+          <p class="content-padded"><font color="black"><b>What is liquefaction?</b></font></p>
+          <p class="content-padded">Water-saturated sands, silts, and other very loosely compacted soils, when subjected to earthquake motion, may be rearranged, thereby losing their supporting strength. When this occurs, buildings may partly sink into the ground and sand and silts may come to the surface to form sand flows. In effect, the soils behave as dense fluids when liquefied.</p>
+
+          <p class="content-padded"><font color="black"><b>Do we need to worry only about large earthquakes causing damage?</b></font></p>
+          <p class="content-padded">No. A moderate-sized earthquake that occurs under an urbanized area can cause major damage.</p>
+
+          <p class="content-padded"><font color="black"><b>Are magnitude and intensity of an earthquake the same?</b></font></p>
+          <p class="content-padded">They are not. Magnitude is a measure of the energy that is released during an earthquake, while intensity is a description of the variable shaking that is experienced in different areas.
+		Intensity is usually written in Roman numerals (for better distinction from magnitude, which is usually in Arabic numbers).
+		The magnitude of an earthquake is a single number. For instance, a magnitude 7.2 is expected from the West Valley Fault that transects from Sierra Madre through Metro Manila to Batangas.
+		The magnitude scale is logarithmic: between magnitudes 7.2 and 7.3, the increment of energy is about 1.4 times; between magnitudes 7.0 and 8.0, about 32 times!
+		The wattage of a light bulb is analogous to the magnitude of an earthquake. The intensity of light or intensity of an earthquake varies according to several factors, including distance from the bulb or distance from the epicenter.
+		Other factors that affect earthquake intensity are rock or soil types, ground sublayer, and depth, length and type of fault displacement.
+		What intensities can a magnitude 7.2 earthquake from the West Valley Fault generate in Metro Manila?
+		According to the 2004 Metro Manila Earthquake Impact Reduction Study by the Philippine Institute of Volcanology and Seismology (Phivolcs), the Metropolitan Manila Development Authority and Japan International Cooperation Agency, intensities VIII (very destructive) to IX (devastating) may be experienced alongside Marikina River and near Manila Bay. Lower intensity may be experienced in most of Quezon City.
+		In the sense that large-magnitude and high-intensity earthquakes are probable, we may say that Metro Manila has high seismic hazard, as do other regions in the country.
+		.</p>
+
+		<p class="content-padded"><font color="black"><b>How rampant is the construction of buildings beside or on earthquake faults like the West Valley Fault?</b></font></p>
+	          <p class="content-padded">Construction is very rampant beside or on earthquake faults, including the West Valley Fault that transects Metro Manila. Why? And how risky is this situation?
+	It was in 2001 that the National Structural Code of the Philippines published the maps by Phivolcs that indicated the active faults in the country. As a result, buildings that were designed and constructed earlier did not take into account the faults.
+	Neither did nonengineered houses, even new ones, consider the faults.
+	Phivolcs now recommends avoiding construction within 5 meters on each side of a fault trace, or a total width of 10 meters. We may call this the ideal ?10-meter wide no-build zone? in the vicinity of a fault.
+	Ideally, we should not build in the 10-meter wide no-build zone to avoid the hazard of ground fissure.
+	It will be extremely difficult for the foundation of a structure to withstand ground fissures or deformations. In case a bridge or a pipeline cannot avoid crossing a fault trace, a special design will be needed to accommodate dislocations of at least one meter.
+	We may also speak of a 10-kilometer wide near-fault zone that requires, since 2001, the highest seismic design forces to withstand ground shaking (in contrast with the hazard of ground fissure in the 10-meter wide no-build zone.)
+	At present, the exposure of houses and buildings is very high within the 10-meter wide no-build zone and the 10-km wide near-fault zone.
+	</p>
+
+	<p class="content-padded"><font color="black"><b>Is it true that liquefaction or ?quicksand effect? is a threat to structures located far from the 10-km near-fault zone?</b></font></p>
+	          <p class="content-padded">Yes, the ground may liquefy or turn into quicksand even in areas beyond the 10-km wide near-fault zone.
+If the soil is sandy as in river deltas and coastal areas, the water table is just a few meters below the ground surface. If the ground-shaking intensity is high and sustained for 30 seconds or more, then the soil may liquefy.
+With liquefaction, whole houses and buildings may tilt and even topple.
+Tilting or toppling of structures during liquefaction tends to be slow, giving occupants enough time to evacuate. A permanent tilt or serious sinking may render a structure unusable.
+Deep foundations such as concrete piles, 30 meters deep or deeper, are recommended for large buildings in areas with high liquefaction potential to avoid tilting or sinking.
+There are also ground improvement techniques, meant to solidify the soil beneath and around the foundation, that may be recommended for low-rise structures.
+	</p>
+
+		<p class="content-padded"><font color="black"><b>What percent of buildings comply with government standards?</b></font></p>
+	          <p class="content-padded">More than 35 percent of low-rise residential buildings in Metro Manila and perhaps in other regions may not be complying with current government standards for construction either because these are nonengineered structures or because these were built according to much older standards that are now inadequate.
+Building construction standards are periodically updated, incorporating lessons learned from recent earthquakes in the country and overseas. Our national structural code was upgraded significantly in 2001 and recently in 2010.
+More than 25 percent of mid-rise buildings may be noncompliant to current standards, mostly due to their use of the older construction code(s) and standards.
+More than 10 percent of very high-rise buildings (above 30 stories), which are relatively new, may be noncompliant. Anecdotal reports indicate that some engineers are inclined or persuaded to ?optimize? or ?minimize? their structural design to reduce the initial construction cost.
+The cost of the structure of high-rise buildings may be about half of the building cost, the remainder being architectural, electromechanical and other factors.
+Some engineers literally aim for minimum compliance with the standard and code, rather than provide judicious allowance for ?surprises of nature.?
+In contrast, it is notable that many old buildings were designed and built above the minimum standards that were applicable during their construction. Such buildings, even if old, may be audited and possibly proven adequate even by current standards and code.
+	</p>
+
+		<p class="content-padded"><font color="black"><b>What maximum intensity is considered by the current building code?</b></font></p>
+	          <p class="content-padded">It is better to ask engineers about the maximum acceleration (movement in meters per second per second) considered by the current code.
+Intensity scale, by definition, is really descriptive rather than truly quantitative. In the Phivolcs earthquake intensity scale from I (1) to X (10), Intensity VIII can be described as ?very destructive.?
+In Intensity VIII, many well-built buildings are considerably damaged. Concrete dikes and foundation of bridges are destroyed by ground settling or toppling.
+In terms of equivalent acceleration, it may be approximated that 40 percent of the magnitude of acceleration due to gravity (0.4 x G [9.81 meters per second per second]) is considered in seismic zone 4, the zonal classification of most of the country.
+As much as double, or about 0.8G, is considered by the building code for near-fault zones.
+We must note, however, that higher accelerations may still be produced by the maximum credible earthquakes from inland faults such as the West Valley Fault or the Philippine Fault System.
+The building code, in other words, does not even require a design for the maximum conceivable acceleration, but only for the maximum that is likely to occur within the life span of the building.
+The life span of a building is assumed to be 50 years in a typical design.
+	</p>
+
+		<p class="content-padded"><font color="black"><b>Which building will experience higher intensity, a low-rise or a high-rise?</b></font></p>
+	          <p class="content-padded">Tall buildings will be shaken more by large earthquakes that have their epicenters far away, say 50 km.
+Such earthquakes, which may center in offshore trenches or in a very long inland fault, tend to propagate long-period (low-frequency) vibratory waves that ?tune? to the natural vibration periods of tall buildings.
+Low buildings will be shaken more by large or moderate earthquakes from nearby faults, such as the West Valley Fault.
+Near-fault earthquakes tend to propagate short-period (high-frequency) vibratory waves that ?tune? to short buildings.
+Hence, every building, whether low-rise or high-rise, needs to be designed to withstand earthquake shaking. The earthquake hazards in the country may come from nearby inland faults and offshore trenches.
+	</p>
+
+		<p class="content-padded"><font color="black"><b>Can structures that comply with the national building code escape damage from an earthquake?</b></font></p>
+	          <p class="content-padded">No, damage is not precluded by compliance with the minimum requirements of the national building code.
+The minimum standards are aimed at preventing sudden or brittle-type collapse of structures, the kind that will harm or kill some or all occupants.
+A building that follows the minimum standards may still be significantly damaged in the next major earthquake to the point that it will require considerable repairs before it can be reused.
+Unlike in the United States or Japan, we do not provide in the building code the choice of next higher level(s) of design criteria, the kind that will ensure uninterrupted use of the building.
+Some owners of major buildings choose to require their engineers to design for higher performance standards. BPO companies and global semiconductor and electronics plants are among the examples.
+Tougher or more massive structural design is not necessary even in the next higher standard.
+Over the past 10 years, base-isolation technologies for low-rise buildings in which this writer became involved in the seismic design have been introduced in the country.
+Dampers or damping devices against vibrations have also been introduced in a few very tall buildings.
+In a few major projects, worst-case scenario earthquakes have been considered in the analysis and design, over and above the standard requirement of the code.
+
+	</p>
+
+	<p class="content-padded"><font color="black"><b>What is the safest spot in a building during a strong earthquake?</b></font></p>
+	          <p class="content-padded">As explained earlier, significant damage may still happen in a well-designed building. During an earthquake, it is generally advisable to stay beside or under sturdy columns, door frames or desks to guard against falling debris.
+Hollow-block walls with little or no steel reinforcement, pieces of furniture, and fixtures on walls and ceilings tend to be hazardous during strong shaking.
+In the extreme event that beams or whole floors are slowly collapsing, vertically supporting elements (the column, door frame or table) may cushion the impact of falling objects or debris.
+It is not advisable to move to higher floor(s). When the strong shaking is over, it is generally advisable to move out of the building, away from falling debris.
+
+	</p>
+
+		<p class="content-padded"><font color="black"><b>Why are building owners not retrofitting or upgrading their structures?</b></font></p>
+	          <p class="content-padded">Upgrading or retrofitting of houses or buildings to meet current building standards involves significant costs.
+Indirect costs due to disruption of occupancy during upgrading or retrofitting are also a significant deterrent.
+It is less expensive to design and build with some extra provisions over and above the minimum code requirements than to upgrade or retrofit within 10 years or so.
+In the United States and Japan, the government provides financial and other regulatory incentives to motivate building owners to retrofit.
+The two countries retrofitted most government buildings first, in the process making the retrofitting technologies more familiar to the public and the corresponding costs less prohibitive.
+
+	</p>
+
+		<p class="content-padded"><font color="black"><b>Who is responsible for the structural integrity of a building?</b></font></p>
+	          <p class="content-padded">The owner of the house or building is responsible for the structural integrity, including the physical protection of occupants and users.
+Within 15 years of construction, under the Civil Code of the Philippines, engineers (or architects) and contractors (builders) are held liable for any structural failure due to defects in design or construction.
+For buildings and houses that are older than 15 years, the owners are wholly responsible and liable.
+
+
+	</p>
+
+</div>
+
+
+<div id="firstAid">
+
+
+        <ul class="table-view">
+        <li class="table-view-cell media">
+            <span class="media-object pull-left icon icon-plus"></span>
+            <div class="media-body">
+              <b>First Aid Kit</b>
+            </div>
+          </a>
+        </li>
+      </ul>
+          <p class="content-padded"><font color="black"><b>It is recommended that all first aid kits for a family of four include the following:</b></font></p>
+
+
+<ul class="table-view">
+    
+  <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/absorbent-compress-dressings.png">
+      <div class="media-body">
+        Absorbent compress dressings 
+        <p>2 pieces, (5 x 9 inches)</p>
+
+      </div>
+    
+  </li>
+
+   <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/adhesive-bandages.png">
+      <div class="media-body">
+        Adhesive bandages 
+        <p>25 pieces, (assorted sizes)</p>
+      </div>
+    
+  </li>
+
+     <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/adhesive-cloth-tape.png">
+      <div class="media-body">
+        Adhesive cloth tape 
+        <p>1 piece, (10 yards x 1 inch)</p>
+      </div>
+    
+  </li>
+
+       <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/antibiotic-ointment-packets.png">
+      <div class="media-body">
+        Antibiotic ointment packets 
+        <p>5 pieces, (approximately 1 gram)</p>
+      </div>
+    
+  </li>
+
+       <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/antiseptic-wipe-packets.png">
+      <div class="media-body">
+        Antiseptic wipe packets 
+        <p>5 pieces</p>
+      </div>
+    
+  </li>
+
+         <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/packets-of-aspirin.png">
+      <div class="media-body">
+         Packets of aspirin 
+        <p>2 pieces, (81 mg each)</p>
+      </div>
+    
+  </li>
+
+           <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/space-blankets.png">
+      <div class="media-body">
+         Blanket 
+        <p>1 piece, (space blanket)</p>
+      </div>
+    
+  </li>
+            <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/breathing-barrier.png">
+      <div class="media-body">
+         Breathing barrier 
+        <p>1 piece, (with one-way valve)</p>
+      </div>
+    
+  </li>
+              <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/instant-cold-compress.png">
+      <div class="media-body">
+         Instant cold compress 
+        <p>1 piece</p>
+      </div>
+    
+  </li>
+
+              <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/pair-of-nonlatex-gloves.png">
+      <div class="media-body">
+         Pair of nonlatex gloves 
+        <p>2 pieces, (size: large)</p>
+      </div>
+    
+  </li>
+
+                <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/hydrocortisone-ointment.png">
+      <div class="media-body">
+         Hydrocortisone ointment packets 
+        <p>2 pieces, (approximately 1 gram each)</p>
+      </div>
+    
+  </li>
+
+                  <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/Scissors.png">
+      <div class="media-body">
+         Scissors
+        <p>1 piece, (stainless steel)</p>
+      </div>
+    
+  </li>
+
+             <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/roller-bandage.png">
+      <div class="media-body">
+          Roller bandage 
+        <p>1 piece each, (3 and 4 inches wide)</p>
+      </div>
+    
+  </li>
+
+             <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/sterile-gauze-pads.png">
+      <div class="media-body">
+          Sterile gauze pads 
+        <p>5 pieces each, (3x3 and 4x4 inches)</p>
+      </div>
+    
+  </li>
+
+             <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/Oral-thermometer.png">
+      <div class="media-body">
+          Oral thermometer
+        <p>(non-mercury/nonglass)</p>
+      </div>
+    
+  </li>
+
+             <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/triangular-bandages.png">
+      <div class="media-body">
+          Triangular bandages
+        <p>2 pieces</p>
+      </div>
+    
+  </li>
+
+               <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/Tweezers.png">
+      <div class="media-body">
+          Tweezers
+        <p>small size</p>
+      </div>
+    
+  </li>
+
+               <li class="table-view-cell media">
+    
+      <img class="media-object pull-left" src="assets/img/first/booklet.png">
+      <div class="media-body">
+          First aid instruction booklet
+        <p>Available at your local hospital or supermarket</p>
+      </div>
+    
+  </li>
+
+
+  </ul>
+            <p class="content-padded"><font color="black"><b>A well-stocked first aid kit is a handy thing to have. To be prepared for emergencies:</b></font></p>
+          <p class="content-padded">&#9679; Keep a first aid kit in your home and in your car.</p>
+	  <p class="content-padded">&#9679; Carry a first aid kit with you or know where you can find one.</p>
+	  <p class="content-padded">&#9679; Find out the location of first aid kits where you work.</p>
+
+          <p class="content-padded"><font color="black"><b>Whether you buy a first aid kit or put one together, make sure it has all the items you may need:</b></font></p>
+          <p class="content-padded">&#9679; Include any personal items such as medications and emergency phone numbers or other items your health-care provider may suggest.</p>
+	  <p class="content-padded">&#9679; Check the kit regularly.</p>
+	  <p class="content-padded">&#9679; Make sure the flashlight batteries work.</p>
+	  <p class="content-padded">&#9679; Check expiration dates and replace any used or out-of-date contents.</p>
+
+</div>
+
+<div id="about">
+
+        <ul class="table-view">
+        <li class="table-view-cell media">
+            <span class="media-object pull-left icon icon-info"></span>
+            <div class="media-body">
+              <b>About</b>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <p class="content-padded"><font color="black"><b>What is yanigPH?</b></font></p>
+      <p class="content-padded">yanigPH is an iOS app that allows the user to send a distress signal via sound and light using Morse code. Just one tap to the "SOS" button will transmit a continuous beeping sound and light with the three common letters used to call for help, the letters s, o, and another s. The app also contains various information regarding earthquakes. </p>
+      <p class="content-padded"><font color="black"><b>Who made yanigPH?</b></font></p>
+      <p class="content-padded">It is an initiative by Protechtion Corporation to further mitigate the awareness of the public concerning earthquakes.</p>
+      <p class="content-padded"><font color="black"><b>What are the features of the app?</b></font></p>
+      <p class="content-padded">Besides from the features mentioned above, the app  also includes local emergency hotlines, frequently asked questions about earthquakes, and list of equivalent morse code of letters, numbers, and punctuation.</p>
+
+</div>
+
+<div id="menu">
+
+        <ul class="table-view">
+        <li class="table-view-cell media">
+            <span class="media-object pull-left icon icon-bars"></span>
+            <div class="media-body">
+              <b>Menu</b>
+            </div>
+          </a>
+        </li>
+      
+      <li class="table-view-cell"><a onclick="cliSos()"><span class="media-object pull-left icon icon-home"></span>SOS</a></li>
+    <li class="table-view-cell"><a onclick="cliMorseCode()"><span class="media-object pull-left icon icon-more"></span>Morse Code</a></li>
+    <li class="table-view-cell"><a onclick="cliEmerHot()"><span class="media-object pull-left icon icon-person"></span>Emergency Hotlines</a></li>
+    <li class="table-view-cell"><a onclick="cliSurvGu()"><span class="media-object pull-left icon icon-check"></span>Survival Guidelines</a></li>
+    <li class="table-view-cell"><a onclick="cliFirstAid()"><span class="media-object pull-left icon icon-plus"></span>First Aid Kit</a></li>
+    <li class="table-view-cell"><a onclick="cliFaqs()"><span class="media-object pull-left icon icon-search"></span>FAQs</a></li>
+    <li class="table-view-cell"><a onclick="cliAbout()"><span class="media-object pull-left icon icon-info"></span>About</a></li>
+  </ul>
+
+</div>
+
+
+
+<div id="emerhot">
+
+<ul class="table-view">
+    <li class="table-view-cell media">
+    <span class="media-object pull-left icon icon-person"></span>
+      <div class="media-body">
+         <strong>Emergency Hotlines</strong>
+      </div>
+  </li>
+  <li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/ndrrmc.png">
+      <div class="media-body">
+
+      
+        National Disaster and Risk Reduction and Management Council (NDRRMC)
+        <p>(02) 911-1406, (02) 912-2665, (02) 912-5668, (02) 911-1873</p>
+
+      </div>
+    </a>
+  </li>
+  <li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/pnp.png">
+      <div class="media-body">
+        Philippine National Police (PNP) Hotline Patrol
+        <p>117 or send TXT PNP to 2920</p>
+      </div>
+    </a>
+  </li>
+  <li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/bfp.png">
+      <div class="media-body">
+        Bureau of Fire Protection (NCR)
+        <p>117, (02) 729-5166, (02) 410-6319 (Regional Director, Information Desk)</p>
+      </div>
+    </a>
+  </li>
+
+
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/dotc.png">
+      <div class="media-body">
+               Department of Transportation and Communications (DOTC) hotline
+ <p> hotline7890 or (02) 726-6255</p>
+</div>
+ </a> 
+ </li>
+
+	
+
+
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/mmda.png">
+      <div class="media-body">
+               Metro Manila Development Authority (MMDA)
+ <p>136, 882-0925 (flood control)
+Trunkline: (02) 882-4150-77 loc. 337 (rescue), 255 (Metrobase)
+Metrobase: 882-0860
+</p>
+</div>
+ </a> 
+ </li>
+
+
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/dpwh.png">
+      <div class="media-body">
+        Department of Public Works and Highways (DPWH)
+        <p>(02) 304-3713, (02) 304-3904</p>
+      </div>
+    </a>	
+  </li>
+
+
+
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/prc.png">
+      <div class="media-body">
+        Red Cross hotline
+<p>143, (02) 527-0000, (02) 527-8385 to 95</p>
+        </div>
+    </a>
+  </li>
+	
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/nlex.png">
+      <div class="media-body">
+        North Luzon Expressway (NLEX) hotlines        
+<p>(02) 776-7777, 0917-539-8762 (globe), 0999-888-0893 (smart), 0932-854-6980 (sun)</p>
+      </div>
+    </a>	
+  </li>
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/sctex.png">
+      <div class="media-body">
+        Subic-Clark-Tarlac Expressway (SCTEX) hotlines        
+<p>(0920) 96-SCTEX (72839) (traffic hotline) or (045) 459-0522</p>
+      </div>
+    </a>	
+  </li>
+
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/skyway.png">
+      <div class="media-body">
+        Skyway System Hotline
+<p>(02) 776-7777, 0917-539-8762 (globe), 0999-888-0893 (smart), 0932-854-6980 (sun </p>
+      </div>
+    </a>	
+  </li>
+
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/slex.png">
+      <div class="media-body">
+South Luzon Expressway (SLEx) hotline
+<p>0917-6877539 (globe), (049) 508-7509, (02) 584-4389</p>
+      </div>
+    </a>	
+  </li>
+
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/pagasa.png">
+      <div class="media-body">
+Philippine Atmospheric, Geophysical and Astronomical Services Administration(PAGASA) hotline
+<p>(02) 433-8526</p>
+</div>
+    </a>	
+  </li>
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/pcg.png">
+      <div class="media-body">
+Philippine Coast Guard
+<p>(02) 527-3877, (02) 527-8481, 0917-724-3682 (globe), 0917-PCG-DOTC (globe)</p>
+</div>
+    </a>	
+  </li>
+
+
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/manila-water.png">
+      <div class="media-body">
+Manila Water Hotline
+<p>1627</p>
+</div>
+    </a>	
+  </li>
+
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/philvocs.png">
+      <div class="media-body">
+PHIVOLCS
+<p> Trunkline: (02) 426-1468 to 79, local 124/125 (emergency);
+Text/call: 0905-313-4077 (globe)</p>
+</div>
+    </a>	
+  </li>
+
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/dswd.png">
+            <div class="media-body">
+DSWD 
+<p> (632)931-81-01 to 07, local 426 (Disaster Response Unit); (02) 951-7119</p>
+</div>
+</a>
+ </li>
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/manila.png">
+            <div class="media-body">
+Manila Traffic Hotline 
+<p>527-3087</p>
+</div>
+</a>
+ </li>
+
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/cainta.png">
+            <div class="media-body">
+Cainta Traffic Hotline 
+<p>646-0044, (02) 248-1743 (hotline)</p>
+</div>
+</a>
+ </li>
+
+
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/laspinas.png">
+            <div class="media-body">
+Las Piñas Traffic 
+<p>534-2993 (traffic); 533-2225 (Command   Control Center)</p>
+</div>
+</a>
+ </li>
+
+
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/mandaluyong.png">
+            <div class="media-body">
+Mandaluyong Hotline 
+<p>534-2993 (traffic); 533-2225 (Command   Control Center)</p>
+</div>
+</a>
+ </li>
+
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/taguig.png">
+            <div class="media-body">
+Taguig Traffic 
+<p>838-4301 loc. 7112</p>
+</div>
+</a>
+ </li>
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/pasig.png">
+            <div class="media-body">
+Pasig Traffic <p>643-0000 (Command Control Center); 643-1111</p>
+</div>	
+</a>
+ </li>
+
+
+<li class="table-view-cell media">
+    <a>
+      <img class="media-object pull-left" src="assets/img/makati.png">
+            <div class="media-body">
+Makati Public Safety Dept
+ <p>844-3146, 819- 3270 to 71
+</p>
+</div>	
+</a>
+ </li>
+
+
+</ul>
+
+</div>
+
+    </div>
+
+</div>
+
+  </body>
+
+  <script>
+	//HELP
+	function morselightHelp(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+  	//H
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 700);
+	//E
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 900);
+	//L
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1900);
+	//P
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3100);
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+//HELP ME
+	function morselightHelpMe(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+  	//H
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 700);
+	//E
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 900);
+	//L
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1900);
+	//P
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3100);
+
+	//M
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3900);
+
+	//E
+
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 4000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 4100);
+
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+//IM TRAPPED
+	function morselightImTrapped(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+  	//I
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 300);
+	//M
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1100);
+
+	//T
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1500);
+
+	//R
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2300);
+
+	//A
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2900);
+
+	//P
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 4000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 4100);
+
+	//P
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 4200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 4300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 4400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 4700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 4800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 5100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 5200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 5300);
+
+	//E
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 5400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 5500);
+
+	//D
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 5600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 5900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 6000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 6100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 6200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 6300);
+
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+
+//RESCUE ME
+	function morselightRescueMe(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+  	//R
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 700);
+
+	//E
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 900);
+
+	//S
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1500);
+
+	//C
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2700);
+
+	//U
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3500);
+
+	//E
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3700);
+
+	//M
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 4100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 4200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 4500);
+
+	//E
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 4600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 4700);
+	
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+//I NEED FOOD
+	function morselightINeedFood(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+  	//I
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 300);
+
+	//N
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 900);
+
+	//E
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1100);
+
+	//E
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1300);
+
+	//D
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2100);
+
+	//F
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3100);
+
+	//O
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 4000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 4300);
+
+	//O
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 4400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 4700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 4800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 5100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 5200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 5500);
+
+	//D
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 5600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 5900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 6000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 6100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 6200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 6300);
+
+
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+//IM HERE
+	function morselightImHere(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+  	//I
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 300);
+
+	//M
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1100);
+
+	//H
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1900);
+
+	//E
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2100);
+
+	//R
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2900);
+
+	//E
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3100);
+
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+
+//PLEASE
+	function morselightPlease(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+  	//P
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1100);
+
+	//L
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2100);
+
+	//E
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2300);
+
+	//A
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2900);
+
+	//S
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3500);
+
+	//E
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3700);
+
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+
+
+//ASSIST ME
+	function morselightAssistMe(){
+  window.plugins.flashlight.available(function(isAvailable) {
+  if (isAvailable) {
+  	//A
+	window.plugins.flashlight.switchOn(); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 100);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 500);
+
+	//S
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 700);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1100);
+
+	//S
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1700);
+
+	//I
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 1800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 1900);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2100);
+
+	//S
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2300);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2400); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 2700);
+
+	//T
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 2800); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3100);
+
+	//M
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3200); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3500);
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 3600); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 3900);
+
+	//E
+	setTimeout(function() {
+	window.plugins.flashlight.switchOn();
+	}, 4000); 
+	setTimeout(function() {
+	window.plugins.flashlight.switchOff();
+	}, 4100);
+	
+    } else {
+    alert("Flashlight not available on this device");
+  }
+});
+}
+</script>
+</html>

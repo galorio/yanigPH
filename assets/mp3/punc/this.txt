@@ -1,0 +1,19 @@
+ampersand.mp3
+apostrope.mp3
+at.mp3
+colo.mp3
+comma.mp3
+dollar sign.mp3
+equals.mp3
+exclamation-point.mp3
+hyphen-minus.mp3
+parenthesis-close.mp3
+parenthesis-open.mp3
+period.mp3
+plus.mp3
+question-mark.mp3
+quotation-mark.mp3
+semicolon.mp3
+slash.mp3
+this.txt
+underscore.mp3

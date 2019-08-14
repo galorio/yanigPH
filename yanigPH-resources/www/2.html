@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>yanigPH</title>
+
+    <style>
+
+
+      #map-canvas {
+        width: 500px;
+        height: 400px;
+      }
+      #test {
+      height: 200px;
+      width: 200px;
+      border-radius: 200px;
+      border: 0px solid #000;
+      background-color:#D9534F;
+      }
+
+      .center {
+      margin: auto;
+      width: 69%;
+      border:0px solid #8AC007;
+      padding: 10px;
+      }
+    </style>
+
+
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" href="favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="ratchet-2.0.2\dist\css\ratchet.css" rel="stylesheet">
+    <link rel="stylesheet" href="ratchet-2.0.2/dist/css/ratchet.min.css">
+    <script src="ratchet-2.0.2\js\popovers.js"></script>
+    <script src="ratchet-2.0.2\js\sliders.js"></script>
+    <script src="ratchet-2.0.2\js\segmented-controllers.js"></script>
+    <script src="ratchet-2.0.2\js\toggles.js"></script>
+    <script src="ratchet-2.0.2\js\push.js"></script>
+    <script src="ratchet-2.0.2\js\modals.js"></script>
+
+  </head>
+  <body>
+
+
+
+
+    <header class="bar bar-nav">
+    <h1 class="title">
+      <font color="teal" size="5"><strong>yanigPH
+      <span class="icon icon-caret"></span></strong></font>
+      </h1>
+    </header>
+
+
+
+<nav class="bar bar-tab">
+  <a class="tab-item active" href="#">
+    <span class="icon icon-home"></span>
+    <span class="tab-label">SOS</span>
+  </a>
+  <a class="tab-item" href="#morsecode">
+    <span class="icon icon-more"></span>
+    <span class="tab-label">Morse Code</span>
+  </a>
+  <a class="tab-item" data-transition="slide-out" href="index.html">
+    <span class="icon icon-bars"></span>
+    <span class="tab-label">Menu</span>
+  </a>
+    <a class="tab-item" href="#">
+    <span class="icon icon-info"></span>
+    <span class="tab-label">About</span>
+  </a>
+</nav>
+
+
+    <div class="content">
+
+      <a href="#myModalexample" class="btn">Open modal</a>
+<div id="myModalexample" class="modal">
+  <header class="bar bar-nav">
+    <a class="icon icon-close pull-right" href="#myModalexample"></a>
+    <h1 class="title">Modal</h1>
+  </header>
+
+  <div class="content">
+    <p class="content-padded">The contents of my modal go here. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
+  </div>
+</div>
+
+  
+
+    <br/>
+      <p class="content-padded" align="center" >Send a distress signal using Morse code </p>
+    <div class="center">
+
+    <audio id="sos" source src="assets/mp3/sos.mp3"></audio>
+      <button id="test" onclick="javascript:toggleSound(); document.getElementById('sos').loop=true;"><h1><font color="white">SOS</font></h1></button>
+         
+          <script type="text/javascript">
+              function toggleSound() {
+                var audioElem = document.getElementById('sos');
+                if (audioElem.paused)
+                  audioElem.play();
+                else
+                  audioElem.pause();
+              }
+              </script>
+    </div>
+
+ 
+  <p class="content-padded" align="center">This will produce a continuous beeping sound and a flashing light sending an SOS message</p>
+    <br/>
+    <br/>
+    <br/>
+
+
+
+
+<audio id="a" src="assets/mp3/alpha/a.mp3"></audio>
+<audio id="b" src="assets/mp3/alpha/b.mp3"></audio>
+<audio id="c" src="assets/mp3/alpha/c.mp3"></audio>
+<audio id="d" src="assets/mp3/alpha/d.mp3"></audio>
+<audio id="e" src="assets/mp3/alpha/e.mp3"></audio>
+<audio id="f" src="assets/mp3/alpha/f.mp3"></audio>
+<audio id="g" src="assets/mp3/alpha/g.mp3"></audio>
+<audio id="h" src="assets/mp3/alpha/h.mp3"></audio>
+<audio id="i" src="assets/mp3/alpha/i.mp3"></audio>
+<audio id="j" src="assets/mp3/alpha/j.mp3"></audio>
+<audio id="k" src="assets/mp3/alpha/k.mp3"></audio>
+<audio id="l" src="assets/mp3/alpha/l.mp3"></audio>
+<audio id="m" src="assets/mp3/alpha/m.mp3"></audio>
+<audio id="n" src="assets/mp3/alpha/n.mp3"></audio>
+<audio id="o" src="assets/mp3/alpha/o.mp3"></audio>
+<audio id="p" src="assets/mp3/alpha/p.mp3"></audio>
+<audio id="q" src="assets/mp3/alpha/q.mp3"></audio>
+<audio id="r" src="assets/mp3/alpha/r.mp3"></audio>
+<audio id="s" src="assets/mp3/alpha/s.mp3"></audio>
+<audio id="t" src="assets/mp3/alpha/t.mp3"></audio>
+<audio id="u" src="assets/mp3/alpha/u.mp3"></audio>
+<audio id="v" src="assets/mp3/alpha/v.mp3"></audio>
+<audio id="w" src="assets/mp3/alpha/w.mp3"></audio>
+<audio id="x" src="assets/mp3/alpha/x.mp3"></audio>
+<audio id="y" src="assets/mp3/alpha/y.mp3"></audio>
+<audio id="z" src="assets/mp3/alpha/z.mp3"></audio>
+<audio id="0" src="assets/mp3/num/0.mp3"></audio>
+<audio id="1" src="assets/mp3/num/1.mp3"></audio>
+<audio id="2" src="assets/mp3/num/2.mp3"></audio>
+<audio id="3" src="assets/mp3/num/3.mp3"></audio>
+<audio id="4" src="assets/mp3/num/4.mp3"></audio>
+<audio id="5" src="assets/mp3/num/5.mp3"></audio>
+<audio id="6" src="assets/mp3/num/6.mp3"></audio>
+<audio id="7" src="assets/mp3/num/7.mp3"></audio>
+<audio id="8" src="assets/mp3/num/8.mp3"></audio>
+<audio id="9" src="assets/mp3/num/9.mp3"></audio>
+
+<audio id="ampersand" src="assets/mp3/punc/ampersand.mp3"></audio>
+<audio id="apostrope" src="assets/mp3/punc/apostrope.mp3"></audio>
+<audio id="at" src="assets/mp3/punc/at.mp3"></audio>
+<audio id="colon" src="assets/mp3/punc/colon.mp3"></audio>
+<audio id="comma" src="assets/mp3/punc/comma.mp3"></audio>
+<audio id="dollar-sign" src="assets/mp3/punc/dollar-sign.mp3"></audio>
+<audio id="equals" src="assets/mp3/punc/equals.mp3"></audio>
+<audio id="exclamation-point" src="assets/mp3/punc/exclamation-point.mp3"></audio>
+<audio id="hyphen-minus" src="assets/mp3/punc/hyphen-minus.mp3"></audio>
+<audio id="parenthesis-close" src="assets/mp3/punc/parenthesis-close.mp3"></audio>
+<audio id="parenthesis-open" src="assets/mp3/punc/parenthesis-open.mp3"></audio>
+<audio id="period" src="assets/mp3/punc/period.mp3"></audio>
+<audio id="plus" src="assets/mp3/punc/plus.mp3"></audio>
+<audio id="question-mark" src="assets/mp3/punc/question-mark.mp3"></audio>
+<audio id="quotation-mark" src="assets/mp3/punc/quotation-mark.mp3"></audio>
+<audio id="semicolon" src="assets/mp3/punc/semicolon.mp3"></audio>
+<audio id="slash" src="assets/mp3/punc/slash.mp3"></audio>
+<audio id="underscore" src="assets/mp3/punc/underscore.mp3"></audio>
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+ <ul class="table-view">
+        <li class="table-view-cell media">
+            <span class="media-object pull-left icon icon-more"></span>
+            <div class="media-body">
+              <b>Learn Morse Code</b>
+            </div>
+          </a>
+        </li>
+  </ul>
+
+  <div class="segmented-control">
+  <a class="control-item active" href="#item1mobile">
+    Letters
+  </a>
+  <a class="control-item" href="#item2mobile">
+    Numbers
+  </a>
+  <a class="control-item" href="#item3mobile">
+    Punctuation
+  </a>
+</div>
+<div class="card">
+  <span id="item1mobile" class="control-content active">
+    
+      <ul class="table-view">
+        <li class="table-view-cell">A, a (&#9679; &ndash;)
+        <button class="btn btn-positive" onclick="document.getElementById('a').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> B, b (&ndash; &#9679; &#9679; &#9679;)
+        <button class="btn btn-positive" onclick="document.getElementById('b').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell">  C, c (&ndash; &#9679; &ndash; &#9679;)
+        <button class="btn btn-positive" onclick="document.getElementById('c').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> D, d (&ndash; &#9679; &#9679;)
+        <button class="btn btn-positive" onclick="document.getElementById('d').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> E, e (&#9679;)
+        <button class="btn btn-positive" onclick="document.getElementById('e').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> F, f (&#9679; &#9679; &ndash; &#9679;)
+        <button class="btn btn-positive" onclick="document.getElementById('f').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> G, g (&ndash; &ndash; &#9679;)
+        <button class="btn btn-positive" onclick="document.getElementById('g').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> H, h (&#9679; &#9679; &#9679; &#9679;)
+        <button class="btn btn-positive" onclick="document.getElementById('h').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> I, i (&#9679; &#9679;)
+        <button class="btn btn-positive" onclick="document.getElementById('i').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> J, j (&#9679; &ndash; &ndash; &ndash;)
+        <button class="btn btn-positive" onclick="document.getElementById('j').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> K, k (&ndash; &#9679; &ndash;)
+        <button class="btn btn-positive" onclick="document.getElementById('k').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> L, l (&#9679; &ndash; &#9679; &#9679;)
+        <button class="btn btn-positive" onclick="document.getElementById('l').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> M, m (&ndash; &ndash;)
+        <button class="btn btn-positive" onclick="document.getElementById('m').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> N, n (&ndash; &#9679;)
+        <button class="btn btn-positive" onclick="document.getElementById('n').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> O, o (&ndash; &ndash; &ndash;)
+        <button class="btn btn-positive" onclick="document.getElementById('o').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> P, p (&#9679; &ndash; &ndash; &#9679;)
+        <button class="btn btn-positive" onclick="document.getElementById('p').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> Q, q (&ndash; &ndash; &#9679; &ndash;)
+        <button class="btn btn-positive" onclick="document.getElementById('q').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> R, r (&#9679; &ndash;  &#9679;)
+        <button class="btn btn-positive" onclick="document.getElementById('r').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> S, s (&#9679; &#9679; &#9679;)
+        <button class="btn btn-positive" onclick="document.getElementById('s').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> T, t (&ndash;)
+        <button class="btn btn-positive" onclick="document.getElementById('t').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> U, u (&#9679; &#9679; &ndash;)
+        <button class="btn btn-positive" onclick="document.getElementById('u').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> V, v (&#9679; &#9679; &#9679; &ndash;)
+        <button class="btn btn-positive" onclick="document.getElementById('v').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> W, w (&#9679; &ndash; &ndash;)
+        <button class="btn btn-positive" onclick="document.getElementById('w').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> X, x (&ndash; &#9679; &#9679; &ndash;)
+        <button class="btn btn-positive" onclick="document.getElementById('x').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> Y, y (&ndash; &#9679; &ndash; &ndash;)
+        <button class="btn btn-positive" onclick="document.getElementById('y').play()">Play</button>
+        </li>
+
+        <li class="table-view-cell"> Z, z (&ndash; &ndash; &#9679; &#9679;)
+        <button class="btn btn-positive" onclick="document.getElementById('z').play()">Play</button>
+        </li>
+
+      </ul>
+
+  </span>
+  <span id="item2mobile" class="control-content">
+    <ul class="table-view">
+      <li class="table-view-cell"> 0 (&ndash; &ndash; &ndash; &ndash; &ndash;)
+      <button class="btn btn-positive" onclick="document.getElementById('0').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 1 (&#9679; &ndash; &ndash; &ndash; &ndash;)
+      <button class="btn btn-positive" onclick="document.getElementById('1').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 2 (&#9679; &#9679; &ndash; &ndash; &ndash;)
+      <button class="btn btn-positive" onclick="document.getElementById('2').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 3 (&#9679; &#9679; &#9679; &ndash; &ndash;)
+      <button class="btn btn-positive" onclick="document.getElementById('3').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 4 (&#9679; &#9679; &#9679; &#9679; &ndash;)
+      <button class="btn btn-positive" onclick="document.getElementById('4').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 5 (&#9679; &#9679; &#9679; &#9679; &#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('5').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 6 (&ndash; &#9679; &#9679; &#9679; &#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('6').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 7 (&ndash; &ndash; &#9679; &#9679; &#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('7').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 8 (&ndash; &ndash; &ndash; &#9679;&#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('8').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> 9 (&ndash; &ndash; &ndash; &ndash; &#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('9').play()">Play</button>
+      </li>
+
+    </ul>
+
+  </span>
+  <span id="item3mobile" class="control-content">
+    <ul class="table-view">
+      <li class="table-view-cell"> & (&#9679; &nbsp; &#9679; &#9679; &#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('ampersand').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> ‘ (&#9679; &ndash; &ndash; &ndash; &ndash; &#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('apostrope').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> @ (&#9679; &ndash; &ndash; &#9679; &ndash; &#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('at').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> : (&ndash; &ndash; &ndash; &#9679; &#9679; &#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('colon').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> , (&ndash; &ndash; &#9679; &#9679; &ndash; &ndash;)
+      <button class="btn btn-positive" onclick="document.getElementById('comma').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> $ (&#9679; &#9679; &#9679;&ndash; &#9679; &#9679; &ndash;)
+      <button class="btn btn-positive" onclick="document.getElementById('dollar-sign').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> = (&ndash; &#9679; &#9679; &#9679; &ndash;)
+      <button class="btn btn-positive" onclick="document.getElementById('equals').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> ! (&#9679; &#9679; &ndash; &ndash; &#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('exclamation-point').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> - (&ndash; &#9679; &#9679; &#9679; &#9679; &ndash;)
+      <button class="btn btn-positive" onclick="document.getElementById('hyphen-minus').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> ) (&ndash; &#9679; &ndash; &ndash; &#9679; &#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('parenthesis-close').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> ( (&ndash; &#9679; &ndash; &ndash; &#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('parenthesis-open').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> . (&#9679; &ndash; &#9679; &ndash; &#9679; &ndash;)
+      <button class="btn btn-positive" onclick="document.getElementById('period').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> + (&#9679; &ndash; &#9679; &ndash; &#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('plus').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> ? (&#9679; &#9679; &ndash; &ndash; &#9679; &#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('question-mark').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> “ (&#9679; &ndash; &#9679; &#9679; &ndash; &#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('quotation-mark').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> ; (&ndash; &#9679; &ndash; &#9679; &ndash; &#9679;)
+      <button class="btn btn-positive" onclick="document.getElementById('semicolon').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> / (&#9679; &#9679; &ndash; &ndash; &#9679; &ndash;)
+      <button class="btn btn-positive" onclick="document.getElementById('slash').play()">Play</button>
+      </li>
+
+      <li class="table-view-cell"> _ (&#9679; &#9679; &ndash; &ndash; &#9679; &ndash;)
+      <button class="btn btn-positive" onclick="document.getElementById('underscore').play()">Play</button>
+      </li>
+</ul>
+
+  </span>
+</div>
+
+
+
+  <div id="morsecode">
+<br>
+<br>
+ <ul class="table-view">
+        <li class="table-view-cell media">
+            <span class="media-object pull-left icon icon-more"></span>
+            <div class="media-body">
+              <b>Encrypt a Message</b>
+            </div>
+          </a>
+        </li>
+      </ul>
+
+    <form>
+    <input type="text" placeholder="Input your message here">
+    <textarea rows="2"></textarea>
+
+
+<ul class="table-view">
+  <li class="table-view-cell">
+    Continuous
+    <div class="toggle">
+      <div class="toggle-handle"></div>
+    </div>
+  </li>
+  <li class="table-view-cell">
+    Sounds
+    <div class="toggle active">
+      <div class="toggle-handle"></div>
+    </div>
+  </li>
+  <li class="table-view-cell">
+    Lights
+    <div class="toggle">
+      <div class="toggle-handle"></div>
+    </div>
+  </li>
+</ul>
+
+    <input class="btn btn-positive btn-block" type="submit" value="Encrypt">
+    </form>
+
+</div>
+
+
+
+    </div>
+  </body>
+</html>
